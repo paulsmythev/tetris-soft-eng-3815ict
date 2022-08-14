@@ -29,7 +29,4 @@ while running:
             pygame.quit()
             exit()
 
-
-
-
 # https://fonts.google.com/specimen/Silkscreen
