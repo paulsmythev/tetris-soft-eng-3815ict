@@ -1,7 +1,7 @@
 from turtle import back, screensize
 import pygame
 import sys
-
+from button import Button
 
 pygame.init()
 
@@ -18,21 +18,25 @@ screen.fill(BLACK)
 pygame.display.set_caption("Hello World")
 # background = pygame.Surface(window_dimen)
 
-myFont = pygame.font.SysFont("Roboto", 45)
-helloWorld = myFont.render("Hello World", 1, (0, 0, 0), (255, 255, 255))
-
-# draw a test to screen
-screen.blit(helloWorld, (0, 0))
+def my_font(font_size):
+    return pygame.font.SysFont("Roboto", font_size)
 
 # menu loop
 def main_menu():
     running = True
     while running:
+        screen.fill(BLACK)
+        mouse_pos = pygame.mouse.get_pos()
+
+        tetris_title = my_font(110).render("MAIN MENU", True, CREAM)
+        screen.blit(tetris_title, (500, 150))
+
         for event in pygame.event.get():
-            pygame.display.update()
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
 
+        pygame.display.update()
+        
 main_menu()
 # https://fonts.google.com/specimen/Silkscreen
