@@ -2,13 +2,9 @@ from turtle import back, screensize
 import pygame
 import sys
 
-# Select normal game or extended game - adds 2 extra blocks to the game 
-# select field size
-# select AI game - the AI will play the game instead 
-
 pygame.init()
 
-window_dimen = (800, 600)
+window_dimen = (1000, 1000)
 
 screen = pygame.display.set_mode(window_dimen)
 pygame.display.set_caption("Hello World")
@@ -19,6 +15,12 @@ helloWorld = myFont.render("Hello World", 1, (0, 0, 0), (255, 255, 255))
 
 # draw background
 screen.blit(helloWorld, (0, 0))
+
+# colours
+cream = (255, 255, 224)
+black = (0, 0, 0)
+turquoise = (72, 209, 204)
+orange = (255, 165, 0)
 
 # game loop
 running = True
