@@ -131,4 +131,13 @@ T = [
      [0,1,0]]
 ]
 
-options = [I,L,J,O,S,Z,T]
+cyan = (0, 255, 255)
+blue = (0, 0, 255)
+orange = (255, 127, 0)
+yellow = (255, 255, 0)
+green = (0, 255, 0)
+purple = (128, 0, 128)
+red = (255, 0, 0)
+
+options = [I,L,J,O,S,T,Z]
+colours = [cyan, blue, orange, yellow, green, purple, red]
