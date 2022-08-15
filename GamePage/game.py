@@ -10,23 +10,27 @@ pygame.init()
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
 WIDTH = 10
-HEIGHT = 10
+HEIGHT = 20
+BLOCK_SIZE = 40
 SPAWN = math.ceil(WIDTH/2) - 2
+
 WHITE = (255,255,255)
 BLACK = (0,0,0)
+BLUE = (0,0,255)
+GREY = (100, 100, 100)
+RED = (255, 0, 0)
 
 def generateBoard():
     board = []
     for i in range(0, HEIGHT+2):
         board.append([0]*WIDTH)
     displayBoard = []
-
-    for i in range(0, len(board)):
-        top = i * 50 + 1
+    for i in range(2, len(board)):
+        top = 100 + (i-2) * BLOCK_SIZE + 1
         row = []
         for j in range(0, len(board[0])):
-            left = j * 50 + 1
-            row.append(pygame.Rect(left,top,48,48))
+            left = 200 + j * BLOCK_SIZE + 1
+            row.append(pygame.Rect(left,top,38,38))
         displayBoard.append(row)
     return(board, displayBoard)
 
@@ -87,12 +91,13 @@ def checkMove(board, piece, x, y):
 
 def updateDisplay(board):
     screen.fill(BLACK)
-    for i in range(0, len(board)):
+    pygame.draw.rect(screen, GREY, pygame.Rect(200, 100, BLOCK_SIZE*WIDTH, BLOCK_SIZE*HEIGHT))
+    for i in range(2, len(board)):
         for j in range(0, len(board[i])):
             if board[i][j] == 1:
-                pygame.draw.rect(screen, (255, 0, 0), displayBoard[i][j])
+                pygame.draw.rect(screen, BLUE, displayBoard[i-2][j])
             else:
-                pygame.draw.rect(screen, (100, 100, 100), displayBoard[i][j])
+                pygame.draw.rect(screen, BLACK, displayBoard[i-2][j])
     myFont = pygame.font.SysFont('Comic Sans MS', 30)
     scoreText = myFont.render("SCORE: %d" %score, False, WHITE)
     screen.blit(scoreText, (700,100))
@@ -150,6 +155,8 @@ def rotate():
             x += 2
         elif checkMove(board, piece, x-2, y) == 0:
             x -= 2
+        else:
+            rotation -= 1
     tempBoard = copy.deepcopy(board)
     addPiece(tempBoard, piece, x, y)
     updateDisplay(tempBoard)
