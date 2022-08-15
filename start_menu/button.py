@@ -15,7 +15,7 @@ class Button():
             self.img = self.display_text
         
         def update(self, screen):
-            pass
+            print("update")
 
         def checkInput(self, coordinate):
-            pass
+            print("check input")
