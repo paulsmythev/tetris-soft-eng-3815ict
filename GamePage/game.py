@@ -12,6 +12,8 @@ SCREEN_HEIGHT = 1000
 WIDTH = 10
 HEIGHT = 10
 SPAWN = math.ceil(WIDTH/2) - 2
+WHITE = (255,255,255)
+BLACK = (0,0,0)
 
 def generateBoard():
     board = []
@@ -84,7 +86,7 @@ def checkMove(board, piece, x, y):
     return(0)
 
 def updateDisplay(board):
-    screen.fill((0,0,0))
+    screen.fill(BLACK)
     for i in range(0, len(board)):
         for j in range(0, len(board[i])):
             if board[i][j] == 1:
@@ -92,8 +94,8 @@ def updateDisplay(board):
             else:
                 pygame.draw.rect(screen, (100, 100, 100), displayBoard[i][j])
     myFont = pygame.font.SysFont('Comic Sans MS', 30)
-    text = myFont.render("SCORE: %d" %score, False, (255,255,255))
-    screen.blit(text, (700,100))
+    scoreText = myFont.render("SCORE: %d" %score, False, WHITE)
+    screen.blit(scoreText, (700,100))
     pygame.display.update()
     return
 
@@ -124,11 +126,11 @@ def moveDown():
         piece = generatePiece()
         x = 0
         y = 0
-    checkLines()
+        checkLines()
+        checkLose()
     tempBoard = copy.deepcopy(board)
     addPiece(tempBoard, piece, x, y)
     updateDisplay(tempBoard)
-    checkLose()
     return
 
 def rotate():
@@ -167,12 +169,20 @@ def checkLines():
 
 def checkLose():
     if 1 in board[1]:
-        pygame.draw.rect(screen, (255,255,255), pygame.Rect(200,200,600,600))
-        pygame.draw.rect(screen, (0,0,0), pygame.Rect(205,205,590,590))
-        myFont = pygame.font.SysFont('Comic Sans MS', 100)
-    pygame.time.wait(10000)
-    pygame.quit()
-    exit()
+        pygame.draw.rect(screen, WHITE, pygame.Rect(200,200,600,600))
+        pygame.draw.rect(screen, BLACK, pygame.Rect(205,205,590,590))
+        myFont = pygame.font.SysFont('Comic Sans MS', 80)
+        gameOverText = myFont.render("GAME OVER", False, WHITE)
+        myFont = pygame.font.SysFont('Comic Sans MS', 30)
+        scoreText = myFont.render("SCORE: %d" %score, False, WHITE)
+        screen.blit(gameOverText, (250,250))
+        screen.blit(scoreText, (300,350))
+        pygame.display.update()
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
 
 ##  MAIN  ##
 
@@ -211,10 +221,10 @@ while True:
     keys = pygame.key.get_pressed()
     
     if keys[pygame.K_LEFT]:
-        moveLeft(board, piece)
+        moveLeft()
         
     if keys[pygame.K_RIGHT]:
-        moveRight(board, piece)
+        moveRight()
     
     if keys[pygame.K_DOWN]:
         moveDown()
