@@ -12,8 +12,9 @@ TURQUOISE = (72, 209, 204)
 ORANGE = (255, 165, 0)
 
 # window setup
-window_dimen = (1000, 1000)
-screen = pygame.display.set_mode(window_dimen)
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 1000
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 screen.fill(BLACK)
 pygame.display.set_caption("Hello World")
 # background = pygame.Surface(window_dimen)
@@ -30,10 +31,15 @@ def main_menu():
 
         # main title
         tetris_title = my_font(200).render("Tetris", True, CREAM)
-        title_rect = tetris_title.get_rect(center=(500, 150))
+        title_rect = tetris_title.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.15))
         screen.blit(tetris_title, title_rect)
 
-        # play_button = Button()
+        play_button = Button("PLAY!", (SCREEN_WIDTH/2, SCREEN_HEIGHT*0.3), my_font(100), CREAM)
+        buttons = [play_button]
+
+        for button in buttons:
+            button.update(screen)
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
