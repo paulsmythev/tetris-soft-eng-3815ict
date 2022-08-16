@@ -27,6 +27,6 @@ class Button():
     # checks if mouse cursor is in the buttons bounds
     def checkInput(self, coordinate):
         print("checkInput()")
-        if coordinate[0] in range(self.rect.left, self.rect.right) & coordinate[1] in range(self.rect.top, self.rect.bottom):
+        if coordinate[0] in range(self.rect.left, self.rect.right) and coordinate[1] in range(self.rect.top, self.rect.bottom):
             return True
         return False

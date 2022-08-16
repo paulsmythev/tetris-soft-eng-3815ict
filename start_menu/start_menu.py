@@ -21,6 +21,12 @@ pygame.display.set_caption("Start menu")
 def my_font(font_size):
     return pygame.font.SysFont("Roboto", font_size)
 
+def play():
+    print("play screen")
+
+def options():
+    print("options screen")
+
 # menu loop
 def main_menu():
     running = True
@@ -35,19 +41,28 @@ def main_menu():
 
         # instantiating buttons
         play_button = Button("PLAY!", (SCREEN_WIDTH/2, SCREEN_HEIGHT*0.45), my_font(200), CREAM)
-        configure_button = Button("Settings", (SCREEN_WIDTH/2, SCREEN_HEIGHT*0.65), my_font(100), CREAM)
+        options_button = Button("Settings", (SCREEN_WIDTH/2, SCREEN_HEIGHT*0.65), my_font(100), CREAM)
         # credits_button = Button("Credits", (SCREEN_HEIGHT/2, SCREEN_HEIGHT*0.6), my_font(70), CREAM)
         exit_button = Button("Exit", (SCREEN_HEIGHT/2, SCREEN_WIDTH*0.8), my_font(100), CREAM)
 
         # for blitting buttons to screen
-        buttons = [play_button, configure_button, exit_button]
+        buttons = [play_button, options_button, exit_button]
         for button in buttons:
             button.update(screen)
 
+        # event check
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if play_button.checkInput(mouse_pos):
+                    play()
+                elif options_button.checkInput(mouse_pos):
+                    options()
+                elif exit_button.checkInput(mouse_pos):
+                    pygame.quit()
+                    exit()
 
         pygame.display.update()
         
