@@ -25,8 +25,8 @@ class Button():
         screen.blit(self.text, self.text_rect)
 
     # checks if mouse cursor is in the buttons bounds
-    def checkInput(self, coordinate):
+    def checkInput(self, coor):
         print("checkInput()")
-        if coordinate[0] in range(self.rect.left, self.rect.right) and coordinate[1] in range(self.rect.top, self.rect.bottom):
+        if coor[0] in range(self.rect.left, self.rect.right) and coor[1] in range(self.rect.top, self.rect.bottom):
             return True
         return False

@@ -22,10 +22,10 @@ def my_font(font_size):
     return pygame.font.SysFont("Roboto", font_size)
 
 def play():
-    print("play screen")
+    print("@ play screen")
 
 def options():
-    print("options screen")
+    print("@ options screen")
 
 # menu loop
 def main_menu():
