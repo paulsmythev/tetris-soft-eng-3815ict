@@ -34,8 +34,14 @@ def main_menu():
         title_rect = tetris_title.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.15))
         screen.blit(tetris_title, title_rect)
 
+        # instantiating buttons
         play_button = Button("PLAY!", (SCREEN_WIDTH/2, SCREEN_HEIGHT*0.3), my_font(100), CREAM)
-        buttons = [play_button]
+        configure_button = Button("Configuration", (SCREEN_WIDTH/2, SCREEN_HEIGHT*0.45), my_font(70), CREAM)
+        credits_button = Button("Credits", (SCREEN_HEIGHT/2, SCREEN_HEIGHT*0.6), my_font(70), CREAM)
+        # exit_button = Button()
+
+
+        buttons = [play_button, configure_button, credits_button]
 
         for button in buttons:
             button.update(screen)
