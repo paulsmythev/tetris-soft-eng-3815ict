@@ -28,8 +28,12 @@ def main_menu():
         screen.fill(BLACK)
         mouse_pos = pygame.mouse.get_pos()
 
-        tetris_title = my_font(110).render("MAIN MENU", True, CREAM)
-        screen.blit(tetris_title, (500, 150))
+        # main title
+        tetris_title = my_font(200).render("Tetris", True, CREAM)
+        title_rect = tetris_title.get_rect(center=(500, 150))
+        screen.blit(tetris_title, title_rect)
+
+        # play_button = Button()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
