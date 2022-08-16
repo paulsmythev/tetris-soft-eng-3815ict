@@ -16,8 +16,7 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 screen.fill(BLACK)
-pygame.display.set_caption("Hello World")
-# background = pygame.Surface(window_dimen)
+pygame.display.set_caption("Start menu")
 
 def my_font(font_size):
     return pygame.font.SysFont("Roboto", font_size)
@@ -30,22 +29,20 @@ def main_menu():
         mouse_pos = pygame.mouse.get_pos()
 
         # main title
-        tetris_title = my_font(200).render("Tetris", True, CREAM)
+        tetris_title = my_font(300).render("Tetris", True, CREAM)
         title_rect = tetris_title.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.15))
         screen.blit(tetris_title, title_rect)
 
         # instantiating buttons
-        play_button = Button("PLAY!", (SCREEN_WIDTH/2, SCREEN_HEIGHT*0.3), my_font(100), CREAM)
-        configure_button = Button("Configuration", (SCREEN_WIDTH/2, SCREEN_HEIGHT*0.45), my_font(70), CREAM)
-        credits_button = Button("Credits", (SCREEN_HEIGHT/2, SCREEN_HEIGHT*0.6), my_font(70), CREAM)
-        # exit_button = Button()
+        play_button = Button("PLAY!", (SCREEN_WIDTH/2, SCREEN_HEIGHT*0.45), my_font(200), CREAM)
+        configure_button = Button("Settings", (SCREEN_WIDTH/2, SCREEN_HEIGHT*0.65), my_font(100), CREAM)
+        # credits_button = Button("Credits", (SCREEN_HEIGHT/2, SCREEN_HEIGHT*0.6), my_font(70), CREAM)
+        exit_button = Button("Exit", (SCREEN_HEIGHT/2, SCREEN_WIDTH*0.8), my_font(100), CREAM)
 
-
-        buttons = [play_button, configure_button, credits_button]
-
+        # for blitting buttons to screen
+        buttons = [play_button, configure_button, exit_button]
         for button in buttons:
             button.update(screen)
-
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
