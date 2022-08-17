@@ -43,6 +43,8 @@ def main_menu():
         screen.blit(tetris_title, title_rect)
 
         # TODO: year + course code
+        
+
         # TODO: student name
 
         # instantiating buttons
