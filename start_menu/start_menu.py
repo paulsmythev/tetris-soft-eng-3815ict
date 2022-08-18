@@ -50,10 +50,11 @@ def main_menu():
         screen.blit(tetris_title, title_rect)
 
         # TODO: year + course code
-        course_info = " "
+        course_info = "Made for:\n3815ICT\nSoftware Engineering\nYear: 2022"
+        write_lines(screen, course_info, my_font(35), ORANGE, SCREEN_WIDTH*0.01, SCREEN_HEIGHT*0.5)
         # TODO: student names
         student_names = "Students:\nPaul Smyth\nKevin Pho\nRobert Newcombe\nEmanuel Worku"
-        write_lines(screen, student_names, my_font(35), ORANGE, SCREEN_WIDTH*0.01, SCREEN_HEIGHT*0.5)
+        write_lines(screen, student_names, my_font(35), ORANGE, SCREEN_WIDTH*0.01, SCREEN_HEIGHT*0.65)
 
         # instantiating buttons
         play_button = Button("PLAY!", (SCREEN_WIDTH/2, SCREEN_HEIGHT*0.40), my_font(200), CREAM)
