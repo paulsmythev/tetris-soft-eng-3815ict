@@ -19,3 +19,9 @@ Third Stage – Week 12 -  14/10/2022 (Midnight)
 git clone https://github.com/paulsmythev/tetris-soft-eng-3815ict.git
 
 git checkout -b ＜new-branch＞
+
+## OG branches
+RobertGame
+configPage
+hello_world
+pauls-top-score
