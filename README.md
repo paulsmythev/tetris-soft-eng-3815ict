@@ -14,3 +14,8 @@ First Stage – Week 5 - 26/08/2022 (Midnight)
 Second Stage – Week 9 - 23/09/2022 (Midnight)
 
 Third Stage – Week 12 -  14/10/2022 (Midnight)
+
+## Git
+git clone https://github.com/paulsmythev/tetris-soft-eng-3815ict.git
+
+git checkout -b ＜new-branch＞
