@@ -1,3 +1,0 @@
-start menu:
-https://www.youtube.com/watch?v=GMBqjxcKogA&ab_channel=BaralTech
-https://github.com/baraltech/Menu-System-PyGame
