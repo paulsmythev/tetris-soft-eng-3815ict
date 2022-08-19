@@ -7,7 +7,7 @@ class Button():
         self.x_coor = coor[0]
         self.y_coor = coor[1]
         self.colour = colour
-        # for update()
+        # for update() test
         self.text = self.font.render(self.display_text, True, self.colour)
         self.text_rect = self.text.get_rect(center=(self.x_coor, self.y_coor))
         # for checkInput()
