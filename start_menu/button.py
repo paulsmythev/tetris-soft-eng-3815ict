@@ -7,7 +7,7 @@ class Button():
         self.x_coor = coor[0]
         self.y_coor = coor[1]
         self.colour = colour
-        # for update() test
+        # for update()
         self.text = self.font.render(self.display_text, True, self.colour)
         self.text_rect = self.text.get_rect(center=(self.x_coor, self.y_coor))
         # for checkInput()
@@ -30,3 +30,5 @@ class Button():
         if coor[0] in range(self.rect.left, self.rect.right) and coor[1] in range(self.rect.top, self.rect.bottom):
             return True
         return False
+
+    # test
