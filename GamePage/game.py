@@ -1,7 +1,6 @@
 import pygame
 import math
 import copy
-import os
 import random
 import pieces
 
@@ -205,53 +204,51 @@ def checkLose():
                         pygame.quit()
                         exit()
 
-##  MAIN  ##
+def runGame():
+    pygame.display.set_caption("TETRIS")
+    clock = pygame.time.Clock()
+    prevTime = pygame.time.get_ticks()
+
+    generatePiece()
+    addPiece(tempBoard)
+    updateDisplay(tempBoard)
+    while True:
+        
+        clock.tick(12)
+        time = pygame.time.get_ticks()
+        if time - prevTime >= 1000:
+            prevTime = time
+            moveDown()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    rotate()
+
+        keys = pygame.key.get_pressed()
+        
+        if keys[pygame.K_LEFT]:
+            moveLeft()
+            
+        if keys[pygame.K_RIGHT]:
+            moveRight()
+        
+        if keys[pygame.K_DOWN]:
+            moveDown()
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("TETRIS")
-
 board, displayBoard = generateBoard()
-
-clock = pygame.time.Clock()
-prevTime = pygame.time.get_ticks()
-
 nextPiece = random.choice(pieces.options)
 nextColour = (pieces.colours[pieces.options.index(nextPiece)])
 piece = []
 colour = ()
-generatePiece()
-
 rotation = 0
 tempBoard = copy.deepcopy(board)
 x = 0
 y = 0
 score = 0
-addPiece(tempBoard)
-updateDisplay(tempBoard)
-while True:
-    
-    clock.tick(12)
-    time = pygame.time.get_ticks()
-    if time - prevTime >= 1000:
-        prevTime = time
-        moveDown()
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                rotate()
-
-    keys = pygame.key.get_pressed()
-    
-    if keys[pygame.K_LEFT]:
-        moveLeft()
-        
-    if keys[pygame.K_RIGHT]:
-        moveRight()
-    
-    if keys[pygame.K_DOWN]:
-        moveDown()
-
+runGame()
