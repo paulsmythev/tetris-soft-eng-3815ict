@@ -2,7 +2,7 @@ import pygame
 import math
 import copy
 import random
-import pieces
+from . import pieces
 
 pygame.init()
 
@@ -251,4 +251,4 @@ x = 0
 y = 0
 score = 0
 
-runGame()
+#runGame()
