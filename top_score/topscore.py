@@ -4,6 +4,7 @@ import pygame
 from top_score.fileload import fileLoad, loadJson
 from start_menu.button import Button
 
+
 class topScore():
     def __init__():
         print()
@@ -13,7 +14,13 @@ def topScore_displayPage():
     topScoresArray = []
     concatArray = []
 
-    concatArray = loadJson()
+    try:
+        concatArray = loadJson()
+    except:
+        print("cant load JSON")
+
+    number_image = (50, 50)
+    font_color = (255, 255, 224)
 
     #import images
     try:
@@ -48,49 +55,49 @@ def topScore_displayPage():
 
     #Header text and image
     try: 
-        header_image = pygame.transform.smoothscale(header_image, (32, 32))
+        header_image = pygame.transform.smoothscale(header_image, (225, 175))
         screen.blit(header_image, (135, 8))
     except:
         print("Error loading image file")
-    font = pygame.font.Font(None, 32)
-    text = font.render("Top 10 Scores", 1, (255, 255, 255))
-    screen.blit(text, (170, 14))
+    font = pygame.font.Font(None, 100)
+    text = font.render("Top 10 Scores", 1, font_color)
+    screen.blit(text, (390, 80))
 
     #Blit everything to screen
     try:
-        score1 = pygame.transform.smoothscale(score1, (32, 32))
-        screen.blit(score1, (32, 42))
-        score2 = pygame.transform.smoothscale(score2, (32, 32))
-        screen.blit(score2, (32, 84))
-        score3 = pygame.transform.smoothscale(score3, (32, 32))
-        screen.blit(score3, (32, 126))
-        score4 = pygame.transform.smoothscale(score4, (32, 32))
-        screen.blit(score4, (32, 168))
-        score5 = pygame.transform.smoothscale(score5, (32, 32))
-        screen.blit(score5, (32, 210))
-        score6 = pygame.transform.smoothscale(score6, (32, 32))
-        screen.blit(score6, (32, 252))
-        score7 = pygame.transform.smoothscale(score7, (32, 32))
-        screen.blit(score7, (32, 294))
-        score8 = pygame.transform.smoothscale(score8, (32, 32))
-        screen.blit(score8, (32, 336))
-        score9 = pygame.transform.smoothscale(score9, (32, 32))
-        screen.blit(score9, (32, 378))
-        score10 = pygame.transform.smoothscale(score10, (32, 32))
-        screen.blit(score10, (32, 419))
+        score1 = pygame.transform.smoothscale(score1, number_image)
+        screen.blit(score1, (200, 200))
+        score2 = pygame.transform.smoothscale(score2, number_image)
+        screen.blit(score2, (200, 270))
+        score3 = pygame.transform.smoothscale(score3, number_image)
+        screen.blit(score3, (200, 340))
+        score4 = pygame.transform.smoothscale(score4, number_image)
+        screen.blit(score4, (200, 410))
+        score5 = pygame.transform.smoothscale(score5, number_image)
+        screen.blit(score5, (200, 480))
+        score6 = pygame.transform.smoothscale(score6, number_image)
+        screen.blit(score6, (200, 550))
+        score7 = pygame.transform.smoothscale(score7, number_image)
+        screen.blit(score7, (200, 620))
+        score8 = pygame.transform.smoothscale(score8, number_image)
+        screen.blit(score8, (200, 690))
+        score9 = pygame.transform.smoothscale(score9, number_image)
+        screen.blit(score9, (200, 760))
+        score10 = pygame.transform.smoothscale(score10, number_image)
+        screen.blit(score10, (200, 830))
     except:
         print("Error loading image files")
 
     #Display some text, 42 spacing
-    font = pygame.font.Font(None, 32)
-    spacing = 48
+    font = pygame.font.Font(None, 50)
+    spacing = 210
     for x in range(len(concatArray)):
-        text = font.render(concatArray[x], 1, (255, 255, 255))
-        screen.blit(text, (74, spacing))
-        spacing += 42
+        text = font.render(concatArray[x], 1, font_color)
+        screen.blit(text, (275, spacing))
+        spacing += 70
 
     #close button
-    close_button = Button("Close", (185, 485), font, (255, 255, 255))
+    close_button = Button("Close", (490, 925), font, font_color)
     close_button.update(screen)
 
     running = True
