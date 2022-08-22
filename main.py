@@ -3,6 +3,7 @@ import pygame
 import sys
 from start_menu.button import Button
 from GamePage.game import runGame
+from configurePage.configure import config
 
 pygame.init()
 
@@ -34,6 +35,7 @@ def play():
     print("@ play screen")
 
 def options():
+    config()
     print("@ options screen")
 
 def high_scores():
