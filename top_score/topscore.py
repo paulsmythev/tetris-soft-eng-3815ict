@@ -39,6 +39,8 @@ def topScore_displayPage():
     pygame.display.update()
     pygame.display.set_caption('Tetris - Top Scores')
 
+    #stopped flashing here
+
     #Fill the background
     background = pygame.Surface(size)
     background = background.convert()
@@ -91,10 +93,16 @@ def topScore_displayPage():
     close_button = Button("Close", (185, 485), font, (255, 255, 255))
     close_button.update(screen)
 
-    pygame.display.flip()
+    running = True
+    while running:
+        mouse_pos = pygame.mouse.get_pos()
 
-    open = True
-    while open:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                open = False
+                running = False
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if close_button.checkInput(mouse_pos):
+                    running = False
+
+        pygame.display.flip()
