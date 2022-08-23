@@ -20,6 +20,7 @@ score = 0
 level = 1
 lines = 0
 run = True
+image = False
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 board = []
@@ -183,22 +184,37 @@ def updateDisplay(board):
         for j in range(0, len(nextPiece[0][i])):
             if nextPiece[0][i][j] == 1:
                 if nextPiece == pieces.O:
-                    pygame.draw.rect(screen, nextColour, pygame.Rect(765+30*j, 210+30*i, 28, 28))
+                    if image:
+                        screen.blit(pygame.transform.scale(pieces.images[pieces.colours.index(nextColour)], (28,28)), (765+30*j, 210+30*i))
+                    else:
+                        pygame.draw.rect(screen, nextColour, pygame.Rect(765+30*j, 210+30*i, 28, 28))
                 elif nextPiece == pieces.I:
-                    pygame.draw.rect(screen, nextColour, pygame.Rect(765+30*j, 195+30*i, 28, 28))
+                    if image:
+                        screen.blit(pygame.transform.scale(pieces.images[pieces.colours.index(nextColour)], (28,28)), (765+30*j, 195+30*i))
+                    else:
+                        pygame.draw.rect(screen, nextColour, pygame.Rect(765+30*j, 195+30*i, 28, 28))
                 else:
-                    pygame.draw.rect(screen, nextColour, pygame.Rect(780+30*j, 210+30*i, 28, 28))
+                    if image:
+                        screen.blit(pygame.transform.scale(pieces.images[pieces.colours.index(nextColour)], (28,28)), (780+30*j, 210+30*i))
+                    else:
+                        pygame.draw.rect(screen, nextColour, pygame.Rect(780+30*j, 210+30*i, 28, 28))
 
     #Display Current Game Board
     pygame.draw.rect(screen, WHITE, pygame.Rect(284, 84, BLOCK_SIZE*WIDTH+32, BLOCK_SIZE*HEIGHT+32))
     pygame.draw.rect(screen, DARK_GREY, pygame.Rect(288, 88, BLOCK_SIZE*WIDTH+24, BLOCK_SIZE*HEIGHT+24))
     pygame.draw.rect(screen, WHITE, pygame.Rect(296, 96, BLOCK_SIZE*WIDTH+8, BLOCK_SIZE*HEIGHT+8))
-    pygame.draw.rect(screen, GREY, pygame.Rect(300, 100, BLOCK_SIZE*WIDTH, BLOCK_SIZE*HEIGHT))
+    if image:
+        pygame.draw.rect(screen, BLACK, pygame.Rect(300, 100, BLOCK_SIZE*WIDTH, BLOCK_SIZE*HEIGHT))
+    else:
+        pygame.draw.rect(screen, GREY, pygame.Rect(300, 100, BLOCK_SIZE*WIDTH, BLOCK_SIZE*HEIGHT))
         #Game Board
     for i in range(2, len(board)):
         for j in range(0, len(board[i])):
             if board[i][j] != 0:
-                pygame.draw.rect(screen, pieces.colours[board[i][j]-1], displayBoard[i-2][j])
+                if image:
+                    screen.blit(pieces.images[board[i][j]-1], displayBoard[i-2][j].topleft)
+                else:
+                    pygame.draw.rect(screen, pieces.colours[board[i][j]-1], displayBoard[i-2][j])
             else:
                 pygame.draw.rect(screen, BLACK, displayBoard[i-2][j])
     
@@ -289,7 +305,7 @@ def checkLose():
     for i in board[1]:
         if i != 0:
             #Display Game Over
-            GameOver = pygame.image.load('GamePage/Game-Over.png')
+            GameOver = pygame.image.load('GamePage/images/Game-Over.png')
             GameOver = pygame.transform.scale(GameOver, (400,250))
             screen.blit(GameOver, (300,200))
             pygame.display.update()
@@ -298,7 +314,6 @@ def checkLose():
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         run = False
-                        break
 
 def finishGame():
     global run
@@ -333,7 +348,7 @@ def finishGame():
                     check = False
 
 def runGame(inputSize = (10,20), inputLevel = 0, inputGameType = 0, inputGameMode = 0):
-    global WIDTH, HEIGHT, GameType, GameMode, board, displayBoard, tempBoard, run, x, y, score, level, lines
+    global WIDTH, HEIGHT, GameType, GameMode, board, displayBoard, tempBoard, run, x, y, score, level, lines, image
     #Adjust game base on given inputs parameters
     WIDTH, HEIGHT = inputSize
     level = inputLevel
@@ -375,6 +390,15 @@ def runGame(inputSize = (10,20), inputLevel = 0, inputGameType = 0, inputGameMod
                 #Finish game dialog box in escape
                 if event.key == pygame.K_ESCAPE:
                     finishGame()
+                #Activate Image Mode
+                if event.key == pygame.K_p:
+                    if image == True:
+                        image = False
+                    else:
+                        image = True
+                    tempBoard = copy.deepcopy(board)
+                    addPiece(tempBoard)
+                    updateDisplay(tempBoard)
         #Check for keys being held down
         keys = pygame.key.get_pressed()
         #Move left if left key
