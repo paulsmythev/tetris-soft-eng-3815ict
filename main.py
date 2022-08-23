@@ -34,11 +34,9 @@ def write_lines(surface, text, font, colour, x_coor, y_coor):
 
 def play():
     runGame()
-    print("@ play screen")
 
 def options():
     config()
-    print("@ options screen")
 
 def high_scores():
     topScore_displayPage()
