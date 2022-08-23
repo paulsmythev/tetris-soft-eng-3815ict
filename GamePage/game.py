@@ -355,6 +355,7 @@ def runGame(inputSize = (10,20), inputLevel = 0, inputGameType = 0, inputGameMod
     GameType = inputGameType
     GameMode = inputGameMode
     #Reset and initialise game varaibles
+    image = False
     run = True
     x = 0
     y = 0
