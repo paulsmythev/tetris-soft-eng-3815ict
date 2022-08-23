@@ -2,8 +2,10 @@ from turtle import back, left, screensize
 import pygame
 import sys
 from start_menu.button import Button
+
 from GamePage.game import runGame
 from configurePage.configure import config
+from top_score.topscore import topScore, topScore_displayPage
 
 pygame.init()
 
@@ -39,7 +41,7 @@ def options():
     print("@ options screen")
 
 def high_scores():
-    print("@ high score")
+    topScore_displayPage()
 
 # menu loop
 def main_menu():
