@@ -1,23 +1,27 @@
-# last adjustment
-# rescaled the ui to match larger window
-# added a "settings" heading
-# gave the window an icon
-# font can be changed to match main.py in main branch 
-# top score page can be closed in the configure.py
-
-
 # imports pygame module
-# imports start menu function
+# imports button class
+# imports all functions from main
 import pygame, sys
-# from main import start_menu
+from start_menu.button import Button
 
 # initialise module
 pygame.init()
+
+CREAM = (255, 255, 224)
+BLACK = (0, 0, 0)
+TURQUOISE = (72, 209, 204)
+ORANGE = (255, 165, 0)
+
+# window setup
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 1000
+
 # initialise clock
 clock = pygame.time.Clock()
 
 # Creates the screen, includes dimensions
-screen = pygame.display.set_mode((1000, 1000))
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen.fill("black")
 
 # Title
 pygame.display.set_caption("Configure Page")
@@ -25,76 +29,12 @@ pygame.display.set_caption("Configure Page")
 # loads an icon of a cog wheel
 icon = pygame.image.load('cogwheel.png')
 
-
 # # Give the window an icon
 pygame.display.set_icon(icon)
 
-font = pygame.font.SysFont("arialblack", 20)
-button_text = font.render("Start", True, "white")
-
-# button class
-class Button:
-    def __init__(self, x, y, w, h, text):
-        self.x = x
-        self.y = y
-        self.w = w
-        self.h = h
-        self.text = text
-        self.sur = pygame.Rect(x, y, w, h)
-        self.font = pygame.font.SysFont("arialblack", 20)
-        self.titleFont = pygame.font.SysFont("arialblack", 40)
-        self.title_font = self.titleFont.render(text, True, "white")
-        self.text_heading = self.font.render(text, True, "white")
-        self.button_text = self.font.render(text, True, "black")
-
-    # Method for the headings
-    def drawHeading(self, screen):
-        self.getPosRect = button_text.get_rect(center=(self.sur.x + self.sur.width/2, self.sur.y + self.sur.height/2))
-        pygame.draw.rect(screen, "black", self.sur)
-        screen.blit(self.text_heading, self.getPosRect)
-
-    # Method for Title
-    def drawTitle(self, screen):
-        self.getPosRect = button_text.get_rect(center=(self.sur.x + self.sur.width/2, self.sur.y + self.sur.height/2))
-        pygame.draw.rect(screen, "black", self.sur)
-        screen.blit(self.title_font, self.getPosRect)
-
-    # Method for buttons
-    def drawButton(self, screen):
-        self.getPosRect = button_text.get_rect(center=(self.sur.x + self.sur.width/2, self.sur.y + self.sur.height/2))
-        self.rect = pygame.draw.rect(screen, "white", self.sur)
-        screen.blit(self.button_text, self.getPosRect)
-
-    # checks if the mouse collides with button
-    # if mouse collision detected print the following
-    def mouseClick(self):
-        mousePos = pygame.mouse.get_pos()
-        collide = self.rect.collidepoint(mousePos)
-        if collide:
-            print("button is pressed")
-
-    # function to go back to main_menu through close "button"
-    # def backToMenu(self):
-    #     if button8.mouseClick():
-    #         start_menu()
-
-    # need to give each button individual functionality in the assignment, and its own clicking message
-
-# heading objects
-heading1 = Button(450, 250, 0, 0, "Size of field")
-heading2 = Button(450, 400, 0, 0, "Game level")
-heading3 = Button(450, 550, 0, 0, "Game modes")
-heading_title = Button(425, 100, 0, 0, "Settings")
-
-# buttons objects
-button1 = Button(390, 300, 200, 45, "10x40")
-button2 = Button(300, 450, 100, 45, "level 1")
-button3 = Button(425, 450, 100, 45, "level 2")
-button4 = Button(550, 450, 100, 45, "level 3")
-button5 = Button(225, 600, 125, 45, "Normal")
-button6 = Button(400, 600, 175, 45, "Extended")
-button7 = Button(625, 600, 100, 45, "AI")
-button8 = Button(850, 900, 100, 45, "Close")
+# function
+def my_font(font_size):
+    return pygame.font.SysFont("Roboto", font_size)
 
 # function
 def config():
@@ -102,6 +42,47 @@ def config():
     # game window loops until we press 'exit'
     run = True
     while run:
+        screen.fill(BLACK)
+        mouse_pos = pygame.mouse.get_pos()
+
+        # create headings
+        settings_title = my_font(75).render("Settings", True, CREAM)
+        field_heading = my_font(75).render("Field Size", True, CREAM)
+        level_heading = my_font(75).render("Level", True, CREAM)
+        mode_heading= my_font(75).render("Mode", True, CREAM)
+        title_rect = settings_title.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.10))
+        field_rect = field_heading.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.25))
+        level_rect = level_heading.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.40))
+        mode_rect = mode_heading.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT*0.55))
+
+        # blits text to screen
+        screen.blit(settings_title, title_rect)
+        screen.blit(field_heading, field_rect)
+        screen.blit(level_heading, level_rect)
+        screen.blit(mode_heading, mode_rect)
+
+                # create buttons
+        fieldsize_button = Button("10x40", (SCREEN_WIDTH/2, SCREEN_HEIGHT*0.30), my_font(50), CREAM)
+        level1_button = Button("Level 1", (SCREEN_WIDTH*0.30, SCREEN_HEIGHT*0.45), my_font(50), CREAM)
+        level2_button = Button("Level 2", (SCREEN_WIDTH*0.45, SCREEN_HEIGHT*0.45), my_font(50), CREAM)
+        level3_button = Button("Level 3", (SCREEN_WIDTH*0.60, SCREEN_HEIGHT*0.45), my_font(50), CREAM)
+        level4_button = Button("Level 4", (SCREEN_WIDTH*0.75, SCREEN_HEIGHT*0.45), my_font(50), CREAM)
+        easy_button = Button("Easy", (SCREEN_WIDTH*0.25, SCREEN_HEIGHT*0.60), my_font(50), CREAM)
+        normal_button = Button("Normal", (SCREEN_WIDTH*0.40, SCREEN_HEIGHT*0.60), my_font(50), CREAM)
+        hard_button = Button("Hard", (SCREEN_WIDTH*0.55, SCREEN_HEIGHT*0.60), my_font(50), CREAM)
+        extended_button = Button("Extended", (SCREEN_WIDTH*0.71, SCREEN_HEIGHT*0.60), my_font(50), CREAM)
+        ai_button = Button("AI", (SCREEN_WIDTH*0.25, SCREEN_HEIGHT*0.67), my_font(50), CREAM)
+        close_button = Button("Close", (SCREEN_WIDTH*0.85, SCREEN_HEIGHT*0.90), my_font(50), CREAM)
+
+
+        #blit to the screen
+        buttons = [fieldsize_button, level1_button, level2_button, level3_button, 
+                    level4_button, easy_button, normal_button, 
+                    hard_button, extended_button, ai_button, close_button]
+        for button in buttons:
+            button.update(screen)
+
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -109,41 +90,33 @@ def config():
                 sys.exit()
             
             # condition
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                # button calls mouse click method
-                button1.mouseClick()
-                button2.mouseClick()
-                button3.mouseClick()
-                button4.mouseClick()
-                button5.mouseClick()
-                button6.mouseClick()
-                button7.mouseClick()
-                button8.mouseClick()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if fieldsize_button.checkInput(mouse_pos):
+                    pass
+                if level1_button.checkInput(mouse_pos):
+                    pass
+                elif level2_button.checkInput(mouse_pos):
+                    pass
+                elif level3_button.checkInput(mouse_pos):
+                    pass
+                elif level4_button.checkInput(mouse_pos):
+                    pass
+                elif easy_button.checkInput(mouse_pos):
+                    pass
+                elif normal_button.checkInput(mouse_pos):
+                    pass
+                elif hard_button.checkInput(mouse_pos):
+                    pass
+                elif extended_button.checkInput(mouse_pos):
+                    pass
+                elif close_button.checkInput(mouse_pos):
+                    run = False
 
-        screen.fill("black")
+                # lets up update only a portion of whats on the screen
+                pygame.display.flip()
+                # loops 60fps
+            clock.tick(60)
 
-        # Draws headings onto the screen
-        heading1.drawHeading(screen)
-        heading2.drawHeading(screen)
-        heading3.drawHeading(screen)
-        heading_title.drawTitle(screen)
-       
-        # Draws button
-        button1.drawButton(screen)
-        button2.drawButton(screen)
-        button3.drawButton(screen)
-        button4.drawButton(screen)
-        button5.drawButton(screen)
-        button6.drawButton(screen)
-        button7.drawButton(screen)
-        button8.drawButton(screen)
-
-        # lets up update only a portion of whats on the screen
-        pygame.display.flip()
-        # loops 60fps
-        clock.tick(60)
-
-        # game will update
+            # game will update
         pygame.display.update()
 
-config()
