@@ -1,12 +1,42 @@
 [
-    {"position": 1, "name": "Omari Ravindra","score": 1000000},
-    {"position": 2, "name": "Euthalia Albanus", "score": 900000},
-    {"position": 3, "name": "Julissa Paz", "score": 800000},
-    {"position": 4, "name": "Gautier Mac Beatha", "score": 700000},
-    {"position": 5, "name": "Mumtaz Sarita", "score": 600000},
-    {"position": 6, "name": "Antal Vanda", "score": 500000},
-    {"position": 7, "name": "Ancuța Honorinus", "score": 400000},
-    {"position": 8, "name": "Yeong-Gi Leandra", "score": 300000},
-    {"position": 9, "name": "Minttu Tomas", "score": 200000},
-    {"position": 10, "name": "Justine Isolda", "score": 100000}
+    {
+	 "name": "Omari Ravindra",
+	 "score": 1000000
+	},
+    {
+	 "name": "Euthalia Albanus", 
+	 "score": 900000
+	},
+    {
+	 "name": "Julissa Paz", 
+	 "score": 800000
+	},
+    {
+	 "name": "Gautier Mac Beatha", 
+	 "score": 700000
+	},
+    {
+	 "name": "Mumtaz Sarita", 
+	 "score": 600000
+	},
+    {
+	 "name": "Antal Vanda", 
+	 "score": 500000}
+	,
+    {
+	 "name": "Ancuța Honorinus", 
+	 "score": 400000
+	},
+    {
+	 "name": "Yeong-Gi Leandra", 
+	 "score": 300000
+	},
+    {
+	 "name": "Minttu Tomas", 
+	 "score": 200000
+	},
+    {
+	 "name": "Justine Isolda", 
+	 "score": 100000
+	}
 ]

@@ -5,7 +5,9 @@ from start_menu.button import Button
 
 from GamePage.game import runGame
 from configurePage.configure import config
-from top_score.topscore import topScore, topScore_displayPage
+
+from top_score.top_score_screen import topScoreScreen
+from top_score.top_score_check import topScoreCheck
 
 pygame.init()
 
@@ -39,7 +41,8 @@ def options():
     config()
 
 def high_scores():
-    topScore_displayPage()
+    topScoreCheck(1000000, False)
+    #topScoreScreen()
 
 # menu loop
 def main_menu():
