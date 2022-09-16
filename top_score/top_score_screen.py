@@ -1,3 +1,4 @@
+#Class is responsible for showing the top 10 scores list printed to the screen and with images
 import pygame
 import json
 from start_menu.button import Button
@@ -9,6 +10,7 @@ class topScoreScreen():
         topScoresArray = []
         concatArray = []
 
+        #calls file_handler to loading json data
         try:
             topScoresImport = readJson()
         except:
@@ -18,6 +20,7 @@ class topScoreScreen():
         for x in topScoresImport:
             topScoresArray.append(x)
 
+        #Formats the names and scores to be displayed 
         for x in range(len(topScoresArray)):
             brk = json.dumps(topScoresArray[x])
             test = json.loads(brk)
@@ -105,6 +108,7 @@ class topScoreScreen():
         close_button = Button("Close", (490, 925), font_button, font_color)
         close_button.update(screen)
 
+        #Handles the events for closing the page 
         running = True
         while running:
             mouse_pos = pygame.mouse.get_pos()

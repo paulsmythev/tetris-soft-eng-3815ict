@@ -1,7 +1,11 @@
+#This class does to things. 
+#One checks to see if the end of game score is high enough to be added to top scores list
+#Two if the score is big enough to added, a screen will be displayed showing the score and asking for a name and once submitted the top-scores.json will be updated 
 import pygame
 from top_score.file_handler import readJson, writeJson
 from start_menu.button import Button
 
+#Checks to see if the score being checked is bigger or lower than the number 10 score 
 class topScoreCheck():
     def __init__(selft, score, playerAI):
 
@@ -21,14 +25,16 @@ class topScoreCheck():
         else:
             print("not high enough")
 
+#If the score is high enough a screen is displayed congratulating them and asking for a name to save their score 
 def promptName(score, playerAI, pos):
     font_color = (255, 255, 224)
     SCREEN_WIDTH = 1000
     SCREEN_HEIGHT = 1000
 
-    #temp name
+    #temp name get from textbox
     name = "Fred Smith"
 
+    #game played by AI will skip ask for name 
     if playerAI == True:
         updateJson(pos, "AI", score)
     
@@ -115,6 +121,7 @@ def promptName(score, playerAI, pos):
     close_button = Button("Close", (SCREEN_WIDTH/2+30, SCREEN_HEIGHT*0.9), font_button, font_color)
     close_button.update(screen)
 
+    #Handles the events for closing the page 
     running = True
     while running:
         mouse_pos = pygame.mouse.get_pos()
@@ -131,6 +138,7 @@ def promptName(score, playerAI, pos):
 
         pygame.display.flip()
 
+#Handles the updateJson procedure 
 def updateJson(score, name, pos):
 
     try:

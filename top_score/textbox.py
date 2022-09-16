@@ -17,7 +17,7 @@ base_font = pygame.font.Font(None, 55)
 user_text = ''
   
 # create rectangle
-input_rect = pygame.Rect(150, 150, 400, 50)
+input_rect = pygame.Rect(50, 50, 400, 50)
   
 # color_active stores color(lightskyblue3) which
 # gets active when input box is clicked by user
@@ -51,13 +51,16 @@ while True:
   
                 # get text input from 0 to -1 i.e. end.
                 user_text = user_text[:-1]
+
+            elif len(user_text) >= 20:
+                print(len(user_text))
   
             # Unicode standard is used for string
             # formation
             else:
                 user_text += event.unicode
+                
 
-      
     # it will set background color of screen
     screen.fill((255, 255, 255))
   
@@ -78,7 +81,7 @@ while True:
     # set width of textfield so that text cannot get
     # outside of user's text input
     #input_rect.w = max(100, text_surface.get_width()+10)
-    input_rect.w = max(100, text_surface.get_width()+10)
+    input_rect.w = max(450, text_surface.get_width()+10)
       
     # display.flip() will update only a portion of the
     # screen to updated, not full area
