@@ -73,25 +73,25 @@ class topScoreScreen():
         #Blit everything to screen
         try:
             score1 = pygame.transform.smoothscale(score1, number_image)
-            screen.blit(score1, (200, 200))
+            screen.blit(score1, (250, 200))
             score2 = pygame.transform.smoothscale(score2, number_image)
-            screen.blit(score2, (200, 270))
+            screen.blit(score2, (250, 270))
             score3 = pygame.transform.smoothscale(score3, number_image)
-            screen.blit(score3, (200, 340))
+            screen.blit(score3, (250, 340))
             score4 = pygame.transform.smoothscale(score4, number_image)
-            screen.blit(score4, (200, 410))
+            screen.blit(score4, (250, 410))
             score5 = pygame.transform.smoothscale(score5, number_image)
-            screen.blit(score5, (200, 480))
+            screen.blit(score5, (250, 480))
             score6 = pygame.transform.smoothscale(score6, number_image)
-            screen.blit(score6, (200, 550))
+            screen.blit(score6, (250, 550))
             score7 = pygame.transform.smoothscale(score7, number_image)
-            screen.blit(score7, (200, 620))
+            screen.blit(score7, (250, 620))
             score8 = pygame.transform.smoothscale(score8, number_image)
-            screen.blit(score8, (200, 690))
+            screen.blit(score8, (250, 690))
             score9 = pygame.transform.smoothscale(score9, number_image)
-            screen.blit(score9, (200, 760))
+            screen.blit(score9, (250, 760))
             score10 = pygame.transform.smoothscale(score10, number_image)
-            screen.blit(score10, (200, 830))
+            screen.blit(score10, (250, 830))
         except:
             print("Error loading image files")
 
@@ -100,7 +100,7 @@ class topScoreScreen():
         spacing = 210
         for x in range(len(concatArray)):
             text = font.render(concatArray[x], 1, font_color)
-            screen.blit(text, (275, spacing))
+            screen.blit(text, (325, spacing))
             spacing += 70
 
         #close button

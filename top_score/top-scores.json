@@ -1,42 +1,43 @@
 [
- {
-  "name": "Fred Smith",
-  "score": 1000000
- },
- {
-  "name": "Omari Ravindra",
-  "score": 1000000
- },
- {
-  "name": "Euthalia Albanus",
-  "score": 900000
- },
- {
-  "name": "Julissa Paz",
-  "score": 800000
- },
- {
-  "name": "Gautier Mac Beatha",
-  "score": 700000
- },
- {
-  "name": "Mumtaz Sarita",
-  "score": 600000
- },
- {
-  "name": "Antal Vanda",
-  "score": 500000
- },
- {
-  "name": "Ancua Honorinus",
-  "score": 400000
- },
- {
-  "name": "Yeong-Gi Leandra",
-  "score": 300000
- },
- {
-  "name": "Minttu Tomas",
-  "score": 200000
- }
-]
+    {
+     "name": "Omari Ravindra",
+     "score": 20000
+    },
+    {
+     "name": "Euthalia Albanus", 
+     "score": 10000
+    },
+    {
+     "name": "Julissa Paz", 
+     "score": 9000
+    },
+    {
+     "name": "Gautier Mac Beatha", 
+     "score": 8000
+    },
+    {
+     "name": "Mumtaz Sarita", 
+     "score": 5000
+    },
+    {
+     "name": "Antal Vanda", 
+     "score": 3000
+     }
+    ,
+    {
+     "name": "Ancuta Honorinus", 
+     "score": 500
+    },
+    {
+     "name": "Yeong-Gi Leandra", 
+     "score": 300
+    },
+    {
+     "name": "Minttu Tomas", 
+     "score": 200
+    },
+    {
+     "name": "Justine Isolda", 
+     "score": 100
+    }
+ ]

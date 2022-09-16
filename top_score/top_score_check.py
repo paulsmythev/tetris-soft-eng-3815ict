@@ -32,7 +32,7 @@ def promptName(score, playerAI, pos):
     SCREEN_HEIGHT = 1000
 
     #temp name get from textbox
-    name = "Fred Smith"
+    name = "git add ."
 
     #game played by AI will skip ask for name 
     if playerAI == True:
@@ -100,12 +100,12 @@ def promptName(score, playerAI, pos):
     elif pos == 10:
         position_image = pygame.transform.smoothscale(score10, (120, 120))
     
-    screen.blit(position_image, (300, 400))
+    screen.blit(position_image, (350, 400))
     font = pygame.font.Font(None, 100)
 
     strScore = "{:,}".format(score)
     text = font.render(strScore, 1, font_color)
-    screen.blit(text, (440, 430))
+    screen.blit(text, (490, 430))
 
     #textbox and button to save
     font = pygame.font.Font(None, 50)
@@ -134,7 +134,11 @@ def promptName(score, playerAI, pos):
                 if close_button.checkInput(mouse_pos):
                     running = False
                 elif save_button.checkInput(mouse_pos):
-                    updateJson(score, name, pos)
+                    if name != "":
+                        updateJson(score, name, pos)
+                        running = False
+                    else:
+                        print("Enter Name!")
 
         pygame.display.flip()
 

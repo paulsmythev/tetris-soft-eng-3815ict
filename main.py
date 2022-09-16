@@ -41,7 +41,8 @@ def options():
     config()
 
 def high_scores():
-    topScoreScreen()
+    #topScoreScreen()
+    topScoreCheck(1000, False)
 
 # menu loop
 def main_menu():
