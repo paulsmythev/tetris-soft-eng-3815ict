@@ -7,6 +7,9 @@ from GamePage.game import runGame
 from configurePage.configure import config
 from top_score.topscore import topScore, topScore_displayPage
 
+# class StartMenu:
+    
+
 pygame.init()
 
 # colours
@@ -45,7 +48,6 @@ def high_scores():
 def main_menu():
     running = True
     while running:
-        screen.fill(BLACK)
         mouse_pos = pygame.mouse.get_pos()
 
         # main title
