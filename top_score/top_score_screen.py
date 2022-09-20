@@ -2,34 +2,36 @@
 import pygame
 import json
 from start_menu.button import Button
-from top_score.file_handler import readJson
+from top_score.file_handler import read_json
 
-class topScoreScreen():
+NUMBER_IMAGE = (50, 50)
+FONT_COLOR = (255, 255, 224)
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 1000
+
+class TopScoreScreen():
     def __init__(self):
 
-        topScoresArray = []
-        concatArray = []
+        top_scores_array = []
+        concat_array = []
 
         #calls file_handler to loading json data
         try:
-            topScoresImport = readJson()
+            top_scores_import = read_json()
         except:
             print("cant load JSON")
 
         #writes each line to array
-        for x in topScoresImport:
-            topScoresArray.append(x)
+        for x in top_scores_import:
+            top_scores_array.append(x)
 
         #Formats the names and scores to be displayed 
-        for x in range(len(topScoresArray)):
-            brk = json.dumps(topScoresArray[x])
+        for x in range(len(top_scores_array)):
+            brk = json.dumps(top_scores_array[x])
             test = json.loads(brk)
-            strName = test["name"]
-            strScore = "{:,}".format(test["score"])
-            concatArray.append(strName + " - " + strScore)
-
-        number_image = (50, 50)
-        font_color = (255, 255, 224)
+            str_name = test["name"]
+            str_score = "{:,}".format(test["score"])
+            concat_array.append(str_name + " - " + str_score)
 
         #import images
         try:
@@ -50,7 +52,7 @@ class topScoreScreen():
         
         # Initialise the screen
         pygame.init()
-        size = width, height = 1000, 1000
+        size = width, height = SCREEN_WIDTH, SCREEN_HEIGHT
         screen = pygame.display.set_mode(size)
         pygame.display.update()
         pygame.display.set_caption('Tetris - Top Scores')
@@ -67,30 +69,30 @@ class topScoreScreen():
         except:
             print("Error loading image file")
         font = pygame.font.Font(None, 100)
-        text = font.render("Top 10 Scores", 1, font_color)
+        text = font.render("Top 10 Scores", 1, FONT_COLOR)
         screen.blit(text, (390, 80))
 
         #Blit everything to screen
         try:
-            score1 = pygame.transform.smoothscale(score1, number_image)
+            score1 = pygame.transform.smoothscale(score1, NUMBER_IMAGE)
             screen.blit(score1, (250, 200))
-            score2 = pygame.transform.smoothscale(score2, number_image)
+            score2 = pygame.transform.smoothscale(score2, NUMBER_IMAGE)
             screen.blit(score2, (250, 270))
-            score3 = pygame.transform.smoothscale(score3, number_image)
+            score3 = pygame.transform.smoothscale(score3, NUMBER_IMAGE)
             screen.blit(score3, (250, 340))
-            score4 = pygame.transform.smoothscale(score4, number_image)
+            score4 = pygame.transform.smoothscale(score4, NUMBER_IMAGE)
             screen.blit(score4, (250, 410))
-            score5 = pygame.transform.smoothscale(score5, number_image)
+            score5 = pygame.transform.smoothscale(score5, NUMBER_IMAGE)
             screen.blit(score5, (250, 480))
-            score6 = pygame.transform.smoothscale(score6, number_image)
+            score6 = pygame.transform.smoothscale(score6, NUMBER_IMAGE)
             screen.blit(score6, (250, 550))
-            score7 = pygame.transform.smoothscale(score7, number_image)
+            score7 = pygame.transform.smoothscale(score7, NUMBER_IMAGE)
             screen.blit(score7, (250, 620))
-            score8 = pygame.transform.smoothscale(score8, number_image)
+            score8 = pygame.transform.smoothscale(score8, NUMBER_IMAGE)
             screen.blit(score8, (250, 690))
-            score9 = pygame.transform.smoothscale(score9, number_image)
+            score9 = pygame.transform.smoothscale(score9, NUMBER_IMAGE)
             screen.blit(score9, (250, 760))
-            score10 = pygame.transform.smoothscale(score10, number_image)
+            score10 = pygame.transform.smoothscale(score10, NUMBER_IMAGE)
             screen.blit(score10, (250, 830))
         except:
             print("Error loading image files")
@@ -98,14 +100,14 @@ class topScoreScreen():
         #Display some text, 42 spacing
         font = pygame.font.Font(None, 50)
         spacing = 210
-        for x in range(len(concatArray)):
-            text = font.render(concatArray[x], 1, font_color)
+        for x in range(len(concat_array)):
+            text = font.render(concat_array[x], 1, FONT_COLOR)
             screen.blit(text, (325, spacing))
             spacing += 70
 
         #close button
         font_button = pygame.font.Font(None, 80)
-        close_button = Button("Close", (490, 925), font_button, font_color)
+        close_button = Button("Close", (490, 925), font_button, FONT_COLOR)
         close_button.update(screen)
 
         #Handles the events for closing the page 
