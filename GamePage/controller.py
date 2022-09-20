@@ -1,12 +1,14 @@
 import pygame
 import copy
+from GamePage.game import Game
+from GamePage.display import Display
 
 class Controller:
     run = True
 
-    def __init__(self, game, display):
-        self.game = game
-        self.display = display
+    def __init__(self, size, level, game_type, game_mode):
+        self.game = Game(size, level, game_type, game_mode)
+        self.display = Display(self.game)
 
     def move_left(self):
         if self.game.check_move(self.game.piece.x-1, self.game.piece.y) == 0:

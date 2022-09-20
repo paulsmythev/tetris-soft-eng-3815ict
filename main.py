@@ -4,8 +4,6 @@ import sys
 from start_menu.button import Button
 
 from GamePage.controller import Controller
-from GamePage.game import Game
-from GamePage.display import Display
 from configurePage.configure import config
 from top_score.topscore import topScore, topScore_displayPage
 
@@ -35,9 +33,7 @@ def write_lines(surface, text, font, colour, x_coor, y_coor):
         surface.blit(text_rect, (x_coor, y_coor+(i*height))) 
 
 def play():
-    game = Game((10,20),0,0,0)
-    display = Display(game)
-    controller = Controller(game, display)
+    controller = Controller((10,20),0,0,0)
     controller.run_game()
 
 def options():
