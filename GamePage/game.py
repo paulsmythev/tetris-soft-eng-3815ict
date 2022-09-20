@@ -214,7 +214,7 @@ def updateDisplay(board):
                 if image:
                     screen.blit(pieces.images[board[i][j]-1], displayBoard[i-2][j].topleft)
                 else:
-                    pygame.draw.rect(screen, pieces.colours[board[i][j]-1], displayBoard[i-2][j])
+                    pygame.draw.rect(screen, pieces.colours[board[i][j]], displayBoard[i-2][j])
             else:
                 pygame.draw.rect(screen, BLACK, displayBoard[i-2][j])
     

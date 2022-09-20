@@ -134,6 +134,7 @@ T = [
      [0,1,0]]
 ]
 
+black = (0, 0, 0)
 cyan = (0, 255, 255)
 blue = (0, 0, 255)
 orange = (255, 127, 0)
@@ -151,5 +152,5 @@ purpleBlock = pygame.transform.scale(pygame.image.load('GamePage/images/purple.p
 redBlock = pygame.transform.scale(pygame.image.load('GamePage/images/red.png'), (38, 38))
 
 options = [I,L,J,O,S,T,Z]
-colours = [cyan, blue, orange, yellow, green, purple, red]
+colours = [black, cyan, blue, orange, yellow, green, purple, red]
 images = [cyanBlock, blueBlock, orangeBlock, yellowBlock, greenBlock, purpleBlock, redBlock]
