@@ -60,7 +60,7 @@ class Game:
             for j in range(0, len(self.piece.type[self.piece.rotation][i])):
                 if i+self.piece.y < self.HEIGHT+2 and j+self.piece.x < self.WIDTH and j+self.piece.x >= 0:
                     if board[i+self.piece.y][j+self.piece.x] == 0 and self.piece.type[self.piece.rotation][i][j] != 0:
-                        board[i+self.piece.y][j+self.piece.x] = pieces.colours.index(self.piece.colour)+1
+                        board[i+self.piece.y][j+self.piece.x] = pieces.colours.index(self.piece.colour)
 
     def check_move(self, x, y):
         #Find bottom of piece
@@ -373,7 +373,6 @@ class Controller:
             #Move down if down key
             if keys[pygame.K_DOWN]:
                 self.move_down()
-
 
 game = Game((10,20),0,0,0)
 display = Display(game)
