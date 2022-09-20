@@ -20,7 +20,7 @@ class Piece:
     rotation = 0
     def __init__(self, x, y):
         self.type = random.choice(pieces.options)
-        self.colour = (pieces.colours[pieces.options.index(self.type)])
+        self.colour = (pieces.colours[pieces.options.index(self.type)+1])
         self.x = x
         self.y = y
 
@@ -194,12 +194,12 @@ class Display:
         text = my_font.render("NEXT", True, WHITE)
         self.screen.blit(text, (800,165))
             #piece
-        for i in range(0, len(self.game.next_piece[0])):
-            for j in range(0, len(self.game.next_piece[0][i])):
-                if self.game.next_piece[0][i][j] == 1:
-                    if self.game.next_piece == pieces.O:
+        for i in range(0, len(self.game.next_piece.type[0])):
+            for j in range(0, len(self.game.next_piece.type[0][i])):
+                if self.game.next_piece.type[0][i][j] == 1:
+                    if self.game.next_piece.type == pieces.O:
                         pygame.draw.rect(self.screen, self.game.next_piece.colour, pygame.Rect(765+30*j, 210+30*i, 28, 28))
-                    elif self.game.next_piece == pieces.I:
+                    elif self.game.next_piece.type == pieces.I:
                         pygame.draw.rect(self.screen, self.game.next_piece.colour, pygame.Rect(765+30*j, 195+30*i, 28, 28))
                     else:
                         pygame.draw.rect(self.screen, self.game.next_piece.colour, pygame.Rect(780+30*j, 210+30*i, 28, 28))
@@ -215,8 +215,34 @@ class Display:
 
         pygame.display.update()
 
+    def game_over(self):
+        game_over = pygame.image.load('GamePage/images/Game-Over.png')
+        game_over = pygame.transform.scale(game_over, (400,250))
+        self.screen.blit(game_over, (300, 200))
+        pygame.display.update()
+
+    def finish(self):
+        #Display finish game dialog box
+        pygame.draw.rect(self.screen, RED, pygame.Rect(245, 195, 510, 210))
+        pygame.draw.rect(self.screen, WHITE, pygame.Rect(250, 200, 500, 200))
+        pygame.draw.rect(self.screen, DARK_GREY, pygame.Rect(254, 204, 492, 192))
+        pygame.draw.rect(self.screen, GREY, pygame.Rect(258, 208, 484, 184))
+        pygame.draw.rect(self.screen, RED, pygame.Rect(300, 280, 400, 10))
+        #Display text
+        my_font = pygame.font.SysFont('Roboto', 80)
+        text = my_font.render("FINISH GAME?", True, RED)
+        self.screen.blit(text, (300,230))
+        #Display buttons
+        my_font = pygame.font.SysFont('Roboto', 50)
+        self.yes_button = Button("YES", (400, 340), my_font, WHITE)
+        self.yes_button.update(self.screen)
+        self.no_button = Button("NO", (600, 340), my_font, WHITE)
+        self.no_button.update(self.screen)
+        pygame.display.update()
+
 #CONTROLLER
 class Controller:
+    run = True
 
     def __init__(self, game, display):
         self.game = game
@@ -289,4 +315,67 @@ class Controller:
             self.game.level += 1
 
     def check_lose(self):
-        
+        for i in self.game.board[1]:
+            if i != 0:
+                #Display Game Over
+                self.display.game_over()
+                while self.run:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            self.run = False
+
+    def finish_game(self):
+        #Display finish game menu
+        self.display.finish()
+        #Wait for input
+        check = True
+        while self.run and check:
+            mouse_pos = pygame.mouse.get_pos()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.run = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.display.yes_button.checkInput(mouse_pos):
+                        self.run = False
+                    if self.display.noButton.checkInput(mouse_pos):
+                        check = False
+
+    def run_game(self):
+        clock = pygame.time.Clock()
+        prev_time = pygame.time.get_ticks()
+        while self.run:
+            #Move down every second
+            clock.tick(12)
+            time = pygame.time.get_ticks()
+            if time - prev_time >= 1000:
+                prev_time = time
+                self.move_down()
+            #Check for inputs
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.run = False
+                if event.type == pygame.KEYDOWN:
+                    #Rotate if up key
+                    if event.key == pygame.K_UP:
+                        self.rotate()
+                    #Finish game dialog box in escape
+                    if event.key == pygame.K_ESCAPE:
+                        self.finish_game()
+                
+            #Check for keys being held down
+            keys = pygame.key.get_pressed()
+            #Move left if left key
+            if keys[pygame.K_LEFT]:
+                self.move_left()
+            #Move right if right key
+            if keys[pygame.K_RIGHT]:
+                self.move_right()
+            #Move down if down key
+            if keys[pygame.K_DOWN]:
+                self.move_down()
+
+
+game = Game((10,20),0,0,0)
+display = Display(game)
+controller = Controller(game, display)
+controller.run_game()
