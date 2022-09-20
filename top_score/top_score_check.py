@@ -1,6 +1,10 @@
 #This class does to things. 
 #One checks to see if the end of game score is high enough to be added to top scores list
 #Two if the score is big enough to added, a screen will be displayed showing the score and asking for a name and once submitted the top-scores.json will be updated 
+
+#from top_score.top_score_check import TopScoreCheck
+#TopScoreCheck(1000, True)
+
 import pygame
 from top_score.file_handler import read_json, write_json
 from start_menu.button import Button
@@ -10,7 +14,7 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
 
 #Checks to see if the score being checked is bigger or lower than the number 10 score 
-class topScoreCheck():
+class TopScoreCheck():
     def __init__(self, score, player_ai):
 
         try:
@@ -38,6 +42,7 @@ def prompt_name(score, player_ai, pos):
     #game played by AI will skip ask for name 
     if player_ai == True:
         update_json(score, "AI", pos)
+        input_name = "Artificial Intelligence"
     
     # Initialise the screen
     pygame.init()
@@ -108,21 +113,27 @@ def prompt_name(score, player_ai, pos):
     text = font.render(strScore, 1, FONT_COLOUR)
     screen.blit(text, (490, 430))
 
-    #asking user for name
-    font = pygame.font.Font(None, 50)
-    text = font.render("Enter name to save score", 1, FONT_COLOUR)
-    screen.blit(text, (330, 540))
+    if player_ai == False:
+        #asking user for name
+        font = pygame.font.Font(None, 50)
+        text = font.render("Enter name to save score", 1, FONT_COLOUR)
+        screen.blit(text, (330, 540))
 
-    #textbox
-    base_font = pygame.font.Font(None, 55)
-    input_rect = pygame.Rect(340, 600, 400, 50)
-    text_surface = base_font.render(input_name, True, (0, 0, 0))
-    pygame.draw.rect(screen, FONT_COLOUR, input_rect)
-    screen.blit(text_surface, (input_rect.x+5, input_rect.y+5))
+        #textbox
+        base_font = pygame.font.Font(None, 55)
+        input_rect = pygame.Rect(340, 600, 400, 50)
+        text_surface = base_font.render(input_name, True, (0, 0, 0))
+        pygame.draw.rect(screen, FONT_COLOUR, input_rect)
+        screen.blit(text_surface, (input_rect.x+5, input_rect.y+5))
 
-    font_button = pygame.font.Font(None, 80)
-    save_button = Button("Save", (530, 700), font_button, FONT_COLOUR)
-    save_button.update(screen)
+        font_button = pygame.font.Font(None, 80)
+        save_button = Button("Save", (530, 700), font_button, FONT_COLOUR)
+        save_button.update(screen)
+
+    elif player_ai == True:
+        font = pygame.font.Font(None, 100)
+        text = font.render(input_name, 1, FONT_COLOUR)
+        screen.blit(text, (150, 550))
 
     #close button
     font_button = pygame.font.Font(None, 80)
