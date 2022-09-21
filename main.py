@@ -3,7 +3,7 @@ import pygame
 import sys
 from start_menu.button import Button
 
-from GamePage.game import runGame
+from GamePage.controller import Controller
 from configurePage.configure import config
 
 from top_score.top_score_screen import TopScoreScreen
@@ -34,7 +34,8 @@ def write_lines(surface, text, font, colour, x_coor, y_coor):
         surface.blit(text_rect, (x_coor, y_coor+(i*height))) 
 
 def play():
-    runGame()
+    controller = Controller((10,20),0,0,0)
+    controller.run_game()
 
 def options():
     config()
