@@ -42,32 +42,33 @@ class MainMenu:
     def high_scores(self):
         TopScoreScreen()
 
+    def main_menu_view(self):
+        self.screen.fill(self.BLACK)        
+        # main title
+        tetris_title = self.my_font(300).render("Tetris", True, self.CREAM)
+        title_rect = tetris_title.get_rect(center=(self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT*0.15))
+        self.screen.blit(tetris_title, title_rect)
+
+        # year + course code
+        course_info = "Made for:\n3815ICT\nSoftware Engineering\nYear: 2022"
+        self.write_lines(self.screen, course_info, self.my_font(35), self.ORANGE, self.SCREEN_WIDTH*0.01, self.SCREEN_HEIGHT*0.5)
+        # student names
+        student_names = "Students:\nPaul Smyth\nKevin Pho\nRobert Newcombe\nEmanuel Worku"
+        self.write_lines(self.screen, student_names, self.my_font(35), self.ORANGE, self.SCREEN_WIDTH*0.01, self.SCREEN_HEIGHT*0.65)
+
     # menu loop
     def main_menu(self):
         running = True
         while running:
-            self.screen.fill(self.BLACK)
             mouse_pos = pygame.mouse.get_pos()
-
-            # main title
-            tetris_title = self.my_font(300).render("Tetris", True, self.CREAM)
-            title_rect = tetris_title.get_rect(center=(self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT*0.15))
-            self.screen.blit(tetris_title, title_rect)
-
-            # year + course code
-            course_info = "Made for:\n3815ICT\nSoftware Engineering\nYear: 2022"
-            self.write_lines(self.screen, course_info, self.my_font(35), self.ORANGE, self.SCREEN_WIDTH*0.01, self.SCREEN_HEIGHT*0.5)
-            # student names
-            student_names = "Students:\nPaul Smyth\nKevin Pho\nRobert Newcombe\nEmanuel Worku"
-            self.write_lines(self.screen, student_names, self.my_font(35), self.ORANGE, self.SCREEN_WIDTH*0.01, self.SCREEN_HEIGHT*0.65)
-
+            # getting view
+            self.main_menu_view()
             # instantiating buttons
             play_button = Button("PLAY!", (self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT*0.40), self.my_font(200), self.CREAM)
             options_button = Button("Settings", (self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT*0.6), self.my_font(100), self.CREAM)
             # credits_button = Button("Credits", (SCREEN_HEIGHT/2, SCREEN_HEIGHT*0.6), my_font(70), CREAM)
             score_button = Button("High Scores", (self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT*0.75), self.my_font(100), self.CREAM)
             exit_button = Button("Exit", (self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT*0.9), self.my_font(80), self.CREAM)
-
             # for blitting buttons to screen
             buttons = [play_button, options_button, exit_button, score_button]
             for button in buttons:
