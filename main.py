@@ -1,10 +1,12 @@
 from turtle import back, left, screensize
+
+
 import pygame
 import sys
 from start_menu.button import Button
 
 from GamePage.controller import Controller
-from configurePage.configure import config
+from configurePage.configure import Configure
 
 from top_score.top_score_screen import TopScoreScreen
 
@@ -37,7 +39,8 @@ class MainMenu:
         controller.run_game()
 
     def options(self):
-        config()
+        configure = Configure()
+        configure.config()
 
     def high_scores(self):
         TopScoreScreen()
