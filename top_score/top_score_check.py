@@ -6,7 +6,7 @@
 #TopScoreCheck(1000, True)
 
 import pygame
-from top_score.file_handler import read_json, write_json
+from top_score.file_handler import FileHandler
 from start_menu.button import Button
 
 FONT_COLOUR = (255, 255, 224)
@@ -14,11 +14,12 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
 
 #Checks to see if the score being checked is bigger or lower than the number 10 score 
-class TopScoreCheck():
-    def __init__(self, score, player_ai):
+class TopScoreCheck:
+    def check(self, score, player_ai):
 
         try:
-            top_scores_import = read_json()
+            get_file = FileHandler()
+            top_scores_import = get_file.read_json()
         except:
             print("cant load JSON")
 
@@ -177,7 +178,8 @@ def prompt_name(score, player_ai, pos):
 def update_json(score, name, pos):
 
     try:
-        top_scores_import = read_json()
+        get_file = FileHandler()
+        top_scores_import = get_file.read_json()
     except:
         print("cant load JSON")
 
@@ -187,4 +189,5 @@ def update_json(score, name, pos):
     insert_data = {'name': name, 'score': score}
     top_scores_import.insert(pos-1, insert_data)
 
-    write_json(top_scores_import)
+    pass_file = FileHandler()
+    pass_file.write_json(top_scores_import)

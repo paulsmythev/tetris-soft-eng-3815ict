@@ -2,22 +2,23 @@
 import pygame
 import json
 from start_menu.button import Button
-from top_score.file_handler import read_json
+from top_score.file_handler import FileHandler
 
 NUMBER_IMAGE = (50, 50)
 FONT_COLOR = (255, 255, 224)
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
 
-class TopScoreScreen():
-    def __init__(self):
+class TopScoreScreen:
+    def screen(self):
 
         top_scores_array = []
         concat_array = []
 
         #calls file_handler to loading json data
         try:
-            top_scores_import = read_json()
+            get_file = FileHandler()
+            top_scores_import = get_file.read_json()
         except:
             print("cant load JSON")
 

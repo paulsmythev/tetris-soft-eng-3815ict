@@ -43,7 +43,8 @@ class MainMenu:
         configure.config()
 
     def high_scores(self):
-        TopScoreScreen()
+        top_score = TopScoreScreen()
+        top_score.screen()
 
     def main_menu_view(self):
         self.screen.fill(self.BLACK)        
