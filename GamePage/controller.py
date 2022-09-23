@@ -97,9 +97,9 @@ class Controller:
                 if event.type == pygame.QUIT:
                     self.run = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.display.yes_button.checkInput(mouse_pos):
+                    if self.display.yes_button.check_input(mouse_pos):
                         self.run = False
-                    if self.display.no_button.checkInput(mouse_pos):
+                    if self.display.no_button.check_input(mouse_pos):
                         check = False
 
     def run_game(self):

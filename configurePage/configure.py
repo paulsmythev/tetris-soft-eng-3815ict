@@ -94,25 +94,25 @@ class Configure:
                 
                 # condition
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if fieldsize_button.checkInput(mouse_pos):
+                    if fieldsize_button.check_input(mouse_pos):
                         pass
-                    if level1_button.checkInput(mouse_pos):
+                    if level1_button.check_input(mouse_pos):
                         pass
-                    elif level2_button.checkInput(mouse_pos):
+                    elif level2_button.check_input(mouse_pos):
                         pass
-                    elif level3_button.checkInput(mouse_pos):
+                    elif level3_button.check_input(mouse_pos):
                         pass
-                    elif level4_button.checkInput(mouse_pos):
+                    elif level4_button.check_input(mouse_pos):
                         pass
-                    elif easy_button.checkInput(mouse_pos):
+                    elif easy_button.check_input(mouse_pos):
                         pass
-                    elif normal_button.checkInput(mouse_pos):
+                    elif normal_button.check_input(mouse_pos):
                         pass
-                    elif hard_button.checkInput(mouse_pos):
+                    elif hard_button.check_input(mouse_pos):
                         pass
-                    elif extended_button.checkInput(mouse_pos):
+                    elif extended_button.check_input(mouse_pos):
                         pass
-                    elif close_button.checkInput(mouse_pos):
+                    elif close_button.check_input(mouse_pos):
                         run = False
 
                     # lets up update only a portion of whats on the screen
