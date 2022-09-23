@@ -151,9 +151,9 @@ def prompt_name(score, player_ai, pos):
                 running = False
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if close_button.checkInput(mouse_pos):
+                if close_button.check_input(mouse_pos):
                     running = False
-                elif save_button.checkInput(mouse_pos):
+                elif save_button.check_input(mouse_pos):
                     if input_name != "":
                         update_json(score, input_name, pos)
                         running = False

@@ -1,34 +1,3 @@
-# 3815ICT Software Engineering - Group Assignment - Trimester 2 2022
-
-The purpose of this assignment is to construct and document a Requirements
-Specification, Design, and Development Process for a classic computer game Tetris. You
-should apply, as far as possible, the software engineering techniques introduced in this
-course. You should employ an OO design and demonstrate capability to use advanced
-design patterns and tactics in your project. The following problem statement is provided.
-The assignment is to be conducted in groups with no more than four students in one
-group
-
-## Milestones
-First Stage – Week 5 - 26/08/2022 (Midnight)
-
-Second Stage – Week 9 - 23/09/2022 (Midnight)
-
-Third Stage – Week 12 -  14/10/2022 (Midnight)
-
-## Git
-git clone https://github.com/paulsmythev/tetris-soft-eng-3815ict.git
-
-git checkout -b ＜new-branch＞
-
-## OG branches
-RobertGame
-
-configPage
-
-hello_world
-
-pauls-top-score
-
 # Software Engineering (2805ICT & 3815ICT) Tetris Assignment
 
 The following README will detail information on the Python files contained in the Tetris game project. It will provide the:
@@ -40,23 +9,75 @@ The following README will detail information on the Python files contained in th
  - Naming conventions for classes, objects, functions and variables.
 
 ## Source Code Information
-This Tetris game consisted of a total of **#** lines of code
+
+This Tetris game consisted of a total of **1170** lines of code
 
 A list of files and information used in this project are shown below.
 
-### [File name]
-**Length**: # lines
+### `main.py`
+**Length**: 109 lines
 #### Description
+This is the main entry point into the application and all classes and modules are accessed through this file's MainMenu class. It contains all the code for running, displaying and storing data relating to the main menu. It contains buttons that direct the user to other parts of the program.
 
-### \_\_init__.py
+### `__init__.py`
 **Length**: 0 lines
 #### Description
 A file that Python uses to indicate that the .py files in the folder are to be treated as a module for importing into other files.
 
-### configure.py
-**Length**: # lines
+### ***start_menu------------------***
+### `button.py`
+**Length**: 26 lines
 #### Description
+Contains the class for a Button, the variables that are required to pass in to create a button, as well as methods to update the button (if needed in the future) and for checking user input using the mouse position.
 
+### ***configurePage--------------***
+### `configure.py`
+**Length**: 124 lines
+#### Description
+This file has all the code that is relating to the configuration menu that is accessed from the main menu. The file contains code for blitting object to screen, handling user input and initialising variables. 
+WIP - There is an interface set up for other functionality such as changing field size, difficulty and the game type (Extended, AI or Player).
+
+### ***GamePage------------------***
+### `controller.py`
+**Length**: 137 lines
+#### Description
+This file contains the code for the controller component of the MVC Game architecture. The code is responsible for processing user input (movement of the block, quitting the game), checking scoring and lose conditions, as well as running the main game loop.
+
+### `display.py`
+**Length**: 140 lines
+#### Description
+This file contains code for displaying the graphical user interface (GUI) to the user and inititialising the playing board (game field). This code also has a method for updating the display, this method gets called when the controller updates the model and redraws the screen with the updated information from the model. It also contains methods for drawing a game over screen and drawing a finish screen where the user chooses whether to continue or return back to main menu
+
+### `game.py`
+**Length**: 96 lines
+#### Description
+This file is used for storing and checking information about the game, instantiating tetris blocks from the Pieces class and manipulating the board's state. This class has methods for generating and adding Tetris blocks to the game field, finding the position of the current block and checking for collision.
+
+### `pieces.py`
+**Length**: 147 lines
+#### Description
+This file contains the "shapes" and rotation configurations of each playing block shown in a bit array. 
+
+### ***top_score--------------------***
+### `file_handler.py`
+**Length**: 28 lines
+#### Description
+This class is used for handling reading and writing to the top scores file
+
+### `top_score_check.py`
+**Length**: 193 lines
+#### Description
+This page reads top-scores.json and checks to see if your score is within the top 10. If it is it will prompt you to enter your name and write your score back to the file.
+
+### `top_score_screen.py`
+**Length**: 127 lines
+#### Description
+This file contains the code for drawing the top score screen, as well as loading the top 10 scores from top-scores.json
+
+### `top-scores.json`
+**Length**: 43 lines
+#### Description
+This file holds the seeded top scores for the application. The scores are stored in key-value pairs with JSON formatting.
 
 ## Naming Conventions
 Naming conventions were a reflection of standard Python naming conventions and the project team adhered to these conventions to the best of their ability. The naming conventions were taken from the [Python documentation](https://peps.python.org/pep-0008/).
@@ -94,5 +115,3 @@ Constants were declared using the`UPPER_CASE_WITH_UNDERSCORES` convention. An ex
 ```
 	SCREEN_WIDTH = 1000
 ```
-
-

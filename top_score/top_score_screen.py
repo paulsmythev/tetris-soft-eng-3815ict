@@ -121,7 +121,7 @@ class TopScoreScreen:
                     running = False
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if close_button.checkInput(mouse_pos):
+                    if close_button.check_input(mouse_pos):
                         running = False
 
             pygame.display.flip()

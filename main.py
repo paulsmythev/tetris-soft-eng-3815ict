@@ -20,13 +20,17 @@ class MainMenu:
     # window setup
     SCREEN_WIDTH = 1000
     SCREEN_HEIGHT = 1000
+
+    # TODO: put this in the view later
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.fill(BLACK)
     pygame.display.set_caption("Start menu")
 
+    # takes a font size and returns the font with the specified size
     def my_font(self, font_size):
         return pygame.font.SysFont("Roboto", font_size)
 
+    # writes text on new lines
     def write_lines(self, surface, text, font, colour, x_coor, y_coor):
         height = font.get_height()
         lines = text.split("\n")
@@ -34,18 +38,22 @@ class MainMenu:
             text_rect = font.render(line, True, colour)
             surface.blit(text_rect, (x_coor, y_coor+(i*height))) 
 
+    # creates and instance of the game controller
     def play(self):
         controller = Controller((10,20),0,0,0)
         controller.run_game()
 
+    # creates instance of the configure page
     def options(self):
         configure = Configure()
         configure.config()
 
+    # creates instance of the top score page
     def high_scores(self):
         top_score = TopScoreScreen()
         top_score.screen()
 
+    # view related code
     def main_menu_view(self):
         self.screen.fill(self.BLACK)        
         # main title
@@ -84,13 +92,13 @@ class MainMenu:
                     pygame.quit()
                     exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if play_button.checkInput(mouse_pos):
+                    if play_button.check_input(mouse_pos):
                         self.play()
-                    elif options_button.checkInput(mouse_pos):
+                    elif options_button.check_input(mouse_pos):
                         self.options()
-                    elif score_button.checkInput(mouse_pos):
+                    elif score_button.check_input(mouse_pos):
                         self.high_scores()
-                    elif exit_button.checkInput(mouse_pos):
+                    elif exit_button.check_input(mouse_pos):
                         pygame.quit()
                         exit()
 
