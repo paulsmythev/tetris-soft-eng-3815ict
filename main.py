@@ -9,6 +9,7 @@ from GamePage.controller import Controller
 from configurePage.configure import Configure
 
 from top_score.top_score_screen import TopScoreScreen
+from top_score.top_score_check import TopScoreCheck
 
 pygame.init()
 class MainMenu:

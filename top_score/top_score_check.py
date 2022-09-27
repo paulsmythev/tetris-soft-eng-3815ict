@@ -1,193 +1,188 @@
-#This class does to things. 
-#One checks to see if the end of game score is high enough to be added to top scores list
-#Two if the score is big enough to added, a screen will be displayed showing the score and asking for a name and once submitted the top-scores.json will be updated 
-
-#from top_score.top_score_check import TopScoreCheck
-#TopScoreCheck(1000, True)
-
 import pygame
 from top_score.file_handler import FileHandler
 from start_menu.button import Button
 
-FONT_COLOUR = (255, 255, 224)
+NUMBER_IMAGE = (50, 50)
+FONT_COLOR = (255, 255, 224)
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
+BLACK = (0, 0, 0)
 
-#Checks to see if the score being checked is bigger or lower than the number 10 score 
+pygame.init()
+
 class TopScoreCheck:
-    def check(self, score, player_ai):
 
+    g_score = 0
+    g_pos_ach = 0
+    g_player_ai = False
+    g_input_name = "Fred Smith"
+
+    #checks if the submitted score is in the top 10
+    def check(self, score):
         try:
-            get_file = FileHandler()
-            top_scores_import = get_file.read_json()
+            self.get_file = FileHandler()
+            self.top_scores_import = self.get_file.read_json()
         except:
             print("cant load JSON")
 
-        array_count = 0
+        self.array_count = 0
 
-        if top_scores_import[len(top_scores_import)-1]["score"] <= score:
-            for x in top_scores_import:
-                array_count += 1
+        if self.top_scores_import[len(self.top_scores_import)-1]["score"] <= score:
+            for x in self.top_scores_import:
+                self.array_count += 1
                 if x["score"] == score or x["score"] < score:
-                    prompt_name(score, player_ai, array_count)
-                    break
+                    self.pos_ach = self.array_count
+                    self.g_pos_ach = self.array_count
+                    return True
         else:
-            print("not high enough")
+            return False
 
-#If the score is high enough a screen is displayed congratulating them and asking for a name to save their score 
-def prompt_name(score, player_ai, pos):
 
-    #temp name get from textbox
-    input_name = "Fred Smith"
+    def my_font(self, font_size):
+        return pygame.font.SysFont("Roboto", font_size)
 
-    #game played by AI will skip ask for name 
-    if player_ai == True:
-        update_json(score, "AI", pos)
-        input_name = "Artificial Intelligence"
+
+    def import_images(self):
+        self.score1 = pygame.image.load('top_score/images/number-one-round-icon.png')
+        self.score2 = pygame.image.load('top_score/images/number-two-round-icon.png')
+        self.score3 = pygame.image.load('top_score/images/number-three-round-icon.png')
+        self.score4 = pygame.image.load('top_score/images/number-four-round-icon.png')
+        self.score5 = pygame.image.load('top_score/images/number-five-round-icon.png')
+        self.score6 = pygame.image.load('top_score/images/number-six-round-icon.png')
+        self.score7 = pygame.image.load('top_score/images/number-seven-round-icon.png')
+        self.score8 = pygame.image.load('top_score/images/number-eight-round-icon.png')
+        self.score9 = pygame.image.load('top_score/images/number-nine-round-icon.png')
+        self.score10 = pygame.image.load('top_score/images/number-ten-round-icon.png')
+        self.header_image = pygame.image.load('top_score/images/1305624857.png')
+
+
+    #Responsible for displaying everything on the page
+    def visual_elements(self):
+        self.import_images()
+
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        pygame.display.set_caption("Top Score Achieved")
+        self.screen.fill(BLACK)
+        pygame.display.update()
+
+        self.header_image = pygame.transform.smoothscale(self.header_image, (225, 175))
+        self.screen.blit(self.header_image, (40, 200))
+
+        self.font = pygame.font.Font(None, 100)
+        self.text = self.font.render("Top Score Achieved!", 1, FONT_COLOR)
+        self.screen.blit(self.text, (270, 275))
+
+        #display number and score
+        if self.pos_ach == 1:
+            self.position_image = pygame.transform.smoothscale(self.score1, (120, 120))
+        elif self.pos_ach == 2:
+            self.position_image = pygame.transform.smoothscale(self.score2, (120, 120))
+        elif self.pos_ach == 3:
+            self.position_image = pygame.transform.smoothscale(self.score3, (120, 120))
+        elif self.pos_ach == 4:
+            self.position_image = pygame.transform.smoothscale(self.score4, (120, 120))
+        elif self.pos_ach == 5:
+            self.position_image = pygame.transform.smoothscale(self.score5, (120, 120))
+        elif self.pos_ach == 6:
+            self.position_image = pygame.transform.smoothscale(self.score6 (120, 120))
+        elif self.pos_ach == 7:
+            self.position_image = pygame.transform.smoothscale(self.score7, (120, 120))
+        elif self.pos_ach == 8:
+            self.position_image = pygame.transform.smoothscale(self.score8, (120, 120))
+        elif self.pos_ach == 9:
+            self.position_image = pygame.transform.smoothscale(self.score9, (120, 120))
+        elif self.pos_ach == 10:
+            self.position_image = pygame.transform.smoothscale(self.score10, (120, 120))
     
-    # Initialise the screen
-    pygame.init()
-    size = width, height = SCREEN_WIDTH, SCREEN_HEIGHT
-    screen = pygame.display.set_mode(size)
-    pygame.display.update()
-    pygame.display.set_caption("Top Score Achieved")
-
-    #Fill the background
-    background = pygame.Surface(size)
-    background = background.convert()
-    background.fill((250,250,250))
-
-    #import images
-    try:
-        score1 = pygame.image.load('top_score/images/number-one-round-icon.png')
-        score2 = pygame.image.load('top_score/images/number-two-round-icon.png')
-        score3 = pygame.image.load('top_score/images/number-three-round-icon.png')
-        score4 = pygame.image.load('top_score/images/number-four-round-icon.png')
-        score5 = pygame.image.load('top_score/images/number-five-round-icon.png')
-        score6 = pygame.image.load('top_score/images/number-six-round-icon.png')
-        score7 = pygame.image.load('top_score/images/number-seven-round-icon.png')
-        score8 = pygame.image.load('top_score/images/number-eight-round-icon.png')
-        score9 = pygame.image.load('top_score/images/number-nine-round-icon.png')
-        score10 = pygame.image.load('top_score/images/number-ten-round-icon.png')
-
-        header_image = pygame.image.load('top_score/images/1305624857.png')
-    except:
-        print("Error loading image files")
-
-    #Header text and image
-    try: 
-        header_image = pygame.transform.smoothscale(header_image, (225, 175))
-        screen.blit(header_image, (40, 200))
-    except:
-        print("Error loading image file")
-
-    font = pygame.font.Font(None, 100)
-    text = font.render("Top Score Achieved!", 1, FONT_COLOUR)
-    screen.blit(text, (270, 275))
-
-    #display number and score
-    if pos == 1:
-        position_image = pygame.transform.smoothscale(score1, (120, 120))
-    elif pos == 2:
-        position_image = pygame.transform.smoothscale(score2, (120, 120))
-    elif pos == 3:
-        position_image = pygame.transform.smoothscale(score3, (120, 120))
-    elif pos == 4:
-        position_image = pygame.transform.smoothscale(score4, (120, 120))
-    elif pos == 5:
-        position_image = pygame.transform.smoothscale(score5, (120, 120))
-    elif pos == 6:
-        position_image = pygame.transform.smoothscale(score6 (120, 120))
-    elif pos == 7:
-        position_image = pygame.transform.smoothscale(score7, (120, 120))
-    elif pos == 8:
-        position_image = pygame.transform.smoothscale(score8, (120, 120))
-    elif pos == 9:
-        position_image = pygame.transform.smoothscale(score9, (120, 120))
-    elif pos == 10:
-        position_image = pygame.transform.smoothscale(score10, (120, 120))
-    
-    screen.blit(position_image, (350, 400))
-    font = pygame.font.Font(None, 100)
-
-    strScore = "{:,}".format(score)
-    text = font.render(strScore, 1, FONT_COLOUR)
-    screen.blit(text, (490, 430))
-
-    if player_ai == False:
-        #asking user for name
-        font = pygame.font.Font(None, 50)
-        text = font.render("Enter name to save score", 1, FONT_COLOUR)
-        screen.blit(text, (330, 540))
-
-        #textbox
-        base_font = pygame.font.Font(None, 55)
-        input_rect = pygame.Rect(340, 600, 400, 50)
-        text_surface = base_font.render(input_name, True, (0, 0, 0))
-        pygame.draw.rect(screen, FONT_COLOUR, input_rect)
-        screen.blit(text_surface, (input_rect.x+5, input_rect.y+5))
-
-        font_button = pygame.font.Font(None, 80)
-        save_button = Button("Save", (530, 700), font_button, FONT_COLOUR)
-        save_button.update(screen)
-
-    elif player_ai == True:
+        self.screen.blit(self.position_image, (350, 400))
         font = pygame.font.Font(None, 100)
-        text = font.render(input_name, 1, FONT_COLOUR)
-        screen.blit(text, (150, 550))
 
-    #close button
-    font_button = pygame.font.Font(None, 80)
-    close_button = Button("Close", (SCREEN_WIDTH/2+30, SCREEN_HEIGHT*0.9), font_button, FONT_COLOUR)
-    close_button.update(screen)
+        strScore = "{:,}".format(self.g_score)
+        text = self.font.render(strScore, 1, FONT_COLOR)
+        self.screen.blit(text, (490, 430))
 
-    #Handles the events for closing the page 
-    running = True
-    while running:
-        mouse_pos = pygame.mouse.get_pos()
+        if self.g_player_ai == False:
+            #asking user for name
+            self.font = pygame.font.Font(None, 50)
+            self.text = self.font.render("Enter name to save score", 1, FONT_COLOR)
+            self.screen.blit(self.text, (330, 540))
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
+            #textbox
+            base_font = pygame.font.Font(None, 55)
+            input_rect = pygame.Rect(340, 600, 400, 50)
+            text_surface = base_font.render(self.g_input_name, True, (0, 0, 0))
+            pygame.draw.rect(self.screen, FONT_COLOR, input_rect)
+            self.screen.blit(text_surface, (input_rect.x+5, input_rect.y+5))
 
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if close_button.checkInput(mouse_pos):
-                    running = False
-                elif save_button.checkInput(mouse_pos):
-                    if input_name != "":
-                        update_json(score, input_name, pos)
-                        running = False
-                    else:
-                        print("Enter Name!")
-                elif input_rect.collidepoint(event.pos):
-                    print("Hit")
+        elif self.g_player_ai == True:
+            #changes to AI details
+            self.g_input_name = "AI"
+            self.font = pygame.font.Font(None, 100)
+            self.text = self.font.render("Artificial Intelligence", 1, FONT_COLOR)
+            self.screen.blit(self.text, (150, 550))
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_BACKSPACE:
-                        input_name = input_name[:-1]
+    #called only from a button to stop continuous loop
+    def update_json(self):
+        try:
+            get_file = FileHandler()
+            self.top_scores_import = get_file.read_json()
+        except:
+            print("cant load JSON")
 
-                elif len(input_name) >= 20:
-                    print(len(input_name))
-                
-                else:
-                    input_name += event.unicode
+        #delete last value
+        self.top_scores_import.pop(len(self.top_scores_import)-1)
 
-        pygame.display.flip()
+        #inserts name and score
+        insert_data = {'name': self.g_input_name, 'score': self.g_score}
+        self.top_scores_import.insert(self.g_pos_ach-1, insert_data)
 
-#Handles the updateJson procedure by deleting las entry then inserting into the array at desired position 
-def update_json(score, name, pos):
+        #passes array back to filehandler
+        pass_file = FileHandler()
+        pass_file.write_json(self.top_scores_import)
 
-    try:
-        get_file = FileHandler()
-        top_scores_import = get_file.read_json()
-    except:
-        print("cant load JSON")
 
-    #delete last value
-    top_scores_import.pop(len(top_scores_import)-1)
+    #Handles the events for running and closing the page 
+    def screen(self, score, player_ai):
+        sufficient = self.check(score)
+        if sufficient == True:
+            self.g_score = score
+            self.g_player_ai = player_ai
 
-    insert_data = {'name': name, 'score': score}
-    top_scores_import.insert(pos-1, insert_data)
+            running = True
+            while running:
+                mouse_pos = pygame.mouse.get_pos()
 
-    pass_file = FileHandler()
-    pass_file.write_json(top_scores_import)
+                self.visual_elements()
+
+                close_button = Button("Close", (SCREEN_WIDTH/2+30, SCREEN_HEIGHT*0.9), self.my_font(80), FONT_COLOR)
+                close_button.update(self.screen)
+
+                if self.g_player_ai == False:
+                    save_button = Button("Save", (530, 700), self.my_font(80), FONT_COLOR)
+                    save_button.update(self.screen)
+
+                pygame.display.update()
+
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        if self.g_player_ai == True:
+                            self.update_json()
+                            running = False
+                        else:
+                            running = False
+
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        if close_button.checkInput(mouse_pos):
+                            if self.g_player_ai == True:
+                                self.update_json()
+                                running = False
+                            else:
+                                running = False
+
+                        elif event.type == pygame.MOUSEBUTTONDOWN:
+                            if save_button.checkInput(mouse_pos):
+                                self.update_json()
+                                running = False
+
+        else:
+            return False 
