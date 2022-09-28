@@ -3,6 +3,14 @@ from start_menu.button import Button
 from GamePage import pieces
 
 class Display:
+    WHITE = (235,235,235)
+    BLACK = (0,0,0)
+    BLUE = (0,0,255)
+    GREY = (100, 100, 100)
+    DARK_GREY = (50, 50, 50)
+    RED = (255, 0, 0)
+    YELLOW = (255, 255, 0)
+    
     SCREEN_WIDTH = 1000
     SCREEN_HEIGHT = 1000
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -120,11 +128,18 @@ class Display:
                         pygame.draw.rect(self.screen, self.game.next_piece.second_colour, pygame.Rect(780+30*j+1, 210+30*i+1, 26, 26))
 
         #Display Game Board
+<<<<<<< HEAD
         pygame.draw.rect(self.screen, self.GREY, pygame.Rect(284, 84, self.game.BLOCK_SIZE*self.game.WIDTH+32, self.game.BLOCK_SIZE*self.game.HEIGHT+32))
         pygame.draw.rect(self.screen, self.WHITE, pygame.Rect(288, 88, self.game.BLOCK_SIZE*self.game.WIDTH+24, self.game.BLOCK_SIZE*self.game.HEIGHT+24))
         pygame.draw.rect(self.screen, self.DARK_GREY, pygame.Rect(296, 96, self.game.BLOCK_SIZE*self.game.WIDTH+8, self.game.BLOCK_SIZE*self.game.HEIGHT+8))
         pygame.draw.rect(self.screen, self.GREY, pygame.Rect(300, 100,self.game. BLOCK_SIZE*self.game.WIDTH, self.game.BLOCK_SIZE*self.game.HEIGHT))
         self.generate_projection()
+=======
+        pygame.draw.rect(self.screen, self.WHITE, pygame.Rect(284, 84, self.game.BLOCK_SIZE*self.game.WIDTH+32, self.game.BLOCK_SIZE*self.game.HEIGHT+32))
+        pygame.draw.rect(self.screen, self.DARK_GREY, pygame.Rect(288, 88, self.game.BLOCK_SIZE*self.game.WIDTH+24, self.game.BLOCK_SIZE*self.game.HEIGHT+24))
+        pygame.draw.rect(self.screen, self.WHITE, pygame.Rect(296, 96, self.game.BLOCK_SIZE*self.game.WIDTH+8, self.game.BLOCK_SIZE*self.game.HEIGHT+8))
+        pygame.draw.rect(self.screen, self.GREY, pygame.Rect(300, 100,self.game. BLOCK_SIZE*self.game.WIDTH, self.game.BLOCK_SIZE*self.game.HEIGHT))
+>>>>>>> d9add4bee91c9567819e30c7684852f5710b5033
         for i in range(2, self.game.HEIGHT+2):
             for j in range(0, self.game.WIDTH):
                 if self.game.visual_board[i][j] == -1:
