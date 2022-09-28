@@ -131,6 +131,10 @@ class TopScoreCheck:
         except:
             print("cant load JSON")
 
+        #if name empty
+        if self.g_input_name == "":
+            self.g_input_name = "Undisclosed"
+
         #delete last value
         self.top_scores_import.pop(len(self.top_scores_import)-1)
 
