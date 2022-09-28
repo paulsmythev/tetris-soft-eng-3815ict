@@ -192,9 +192,7 @@ class Controller:
                         else:
                             self.sounds = True
                             pygame.mixer.music.play(-1, 0, 5000)
-
-
-                
+                            
             #Check for keys being held down
             keys = pygame.key.get_pressed()
             #Move left if left key
