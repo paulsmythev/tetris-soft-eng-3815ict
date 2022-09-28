@@ -15,7 +15,7 @@ class TopScoreCheck:
     g_score = 0
     g_pos_ach = 0
     g_player_ai = False
-    g_input_name = "Fred Smith"
+    g_input_name = ""
 
     #checks if the submitted score is in the top 10
     def check(self, score):
@@ -108,14 +108,16 @@ class TopScoreCheck:
             self.screen.blit(self.text, (330, 540))
 
             #textbox
-            base_font = pygame.font.Font(None, 55)
-            input_rect = pygame.Rect(340, 600, 400, 50)
-            text_surface = base_font.render(self.g_input_name, True, (0, 0, 0))
-            pygame.draw.rect(self.screen, FONT_COLOR, input_rect)
-            self.screen.blit(text_surface, (input_rect.x+5, input_rect.y+5))
+            self.base_font = pygame.font.Font(None, 55)
+            self.input_rect = pygame.Rect(340, 600, 400, 50)
+            self.text_surface = self.base_font.render(self.g_input_name, True, (0, 0, 0))
+            pygame.draw.rect(self.screen, FONT_COLOR, self.input_rect)
+            self.screen.blit(self.text_surface, (self.input_rect.x+5, self.input_rect.y+5))
+
 
         elif self.g_player_ai == True:
             #changes to AI details
+
             self.g_input_name = "AI"
             self.font = pygame.font.Font(None, 100)
             self.text = self.font.render("Artificial Intelligence", 1, FONT_COLOR)
@@ -147,6 +149,8 @@ class TopScoreCheck:
         if sufficient == True:
             self.g_score = score
             self.g_player_ai = player_ai
+
+            self.input_rect_act = False
 
             running = True
             while running:
@@ -183,6 +187,22 @@ class TopScoreCheck:
                             if save_button.checkInput(mouse_pos):
                                 self.update_json()
                                 running = False
+
+                    #sets textbox as active
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.g_player_ai == False:
+                            if self.input_rect.collidepoint(event.pos):
+                                self.input_rect_act = True
+                            else:
+                                self.input_rect_act = False
+
+                    #handles text entry
+                    elif event.type == pygame.KEYDOWN:
+                        if self.input_rect_act == True:
+                            if event.key == pygame.K_BACKSPACE:
+                                self.g_input_name = self.g_input_name[0:-1]
+                            else:
+                                self.g_input_name += event.unicode
 
         else:
             return False 
