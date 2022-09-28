@@ -15,6 +15,14 @@ class Display:
     SCREEN_HEIGHT = 1000
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     display_board = []
+    
+    WHITE = (235,235,235)
+    BLACK = (0,0,0)
+    BLUE = (0,0,255)
+    GREY = (100, 100, 100)
+    DARK_GREY = (50, 50, 50)
+    RED = (255, 0, 0)
+    YELLOW = (255, 255, 0)
 
     def __init__(self, game):
         self.game = game
@@ -25,13 +33,26 @@ class Display:
     def __initialise_board(self):
         #Initialise display board
         for i in range(0, self.game.HEIGHT):
-            top = 100 + i * self.game.BLOCK_SIZE + self.game.OFF_SET
+            top = 100 + i * self.game.BLOCK_SIZE
             row = []
             for j in range(0, self.game.WIDTH):
-                left = 300 + j * self.game.BLOCK_SIZE + self.game.OFF_SET
-                row.append(pygame.Rect(left, top, self.game.BLOCK_SIZE-2*self.game.OFF_SET, self.game.BLOCK_SIZE-2*self.game.OFF_SET))
+                left = 300 + j * self.game.BLOCK_SIZE
+                row.append([pygame.Rect(left-2, top-2, self.game.BLOCK_SIZE+4, self.game.BLOCK_SIZE+4)
+                            ,pygame.Rect(left+self.game.OFF_SET, top+self.game.OFF_SET, self.game.BLOCK_SIZE-2*self.game.OFF_SET, self.game.BLOCK_SIZE-2*self.game.OFF_SET)
+                            ,pygame.Rect(left+3*self.game.OFF_SET, top+3*self.game.OFF_SET, self.game.BLOCK_SIZE-6*self.game.OFF_SET, self.game.BLOCK_SIZE-6*self.game.OFF_SET)])
             self.display_board.append(row)
         
+    def generate_projection(self):
+        depth = 0
+        while (self.game.check_move(self.game.piece.x, self.game.piece.y+depth) == 0):
+            depth += 1
+        depth -= 1
+        for i in range(0, len(self.game.piece.type[self.game.piece.rotation])):
+            for j in range(0, len(self.game.piece.type[self.game.piece.rotation][i])):
+                if i+self.game.piece.y+depth < self.game.HEIGHT+2 and j+self.game.piece.x < self.game.WIDTH and j+self.game.piece.x >= 0:
+                    if self.game.visual_board[i+self.game.piece.y+depth][j+self.game.piece.x] == 0 and self.game.piece.type[self.game.piece.rotation][i][j] != 0:
+                        self.game.visual_board[i+self.game.piece.y+depth][j+self.game.piece.x] = -1
+
     def update_display(self):
         self.screen.fill(self.BLACK)
 
@@ -98,24 +119,34 @@ class Display:
                 if self.game.next_piece.type[0][i][j] == 1:
                     if self.game.next_piece.type == pieces.O:
                         pygame.draw.rect(self.screen, self.game.next_piece.colour, pygame.Rect(765+30*j, 210+30*i, 28, 28))
+                        pygame.draw.rect(self.screen, self.game.next_piece.second_colour, pygame.Rect(765+30*j+1, 210+30*i+1, 26, 26))
                     elif self.game.next_piece.type == pieces.I:
                         pygame.draw.rect(self.screen, self.game.next_piece.colour, pygame.Rect(765+30*j, 195+30*i, 28, 28))
+                        pygame.draw.rect(self.screen, self.game.next_piece.second_colour, pygame.Rect(765+30*j+1, 195+30*i+1, 26, 26))
                     else:
                         pygame.draw.rect(self.screen, self.game.next_piece.colour, pygame.Rect(780+30*j, 210+30*i, 28, 28))
+                        pygame.draw.rect(self.screen, self.game.next_piece.second_colour, pygame.Rect(780+30*j+1, 210+30*i+1, 26, 26))
 
         #Display Game Board
-        pygame.draw.rect(self.screen, self.WHITE, pygame.Rect(284, 84, self.game.BLOCK_SIZE*self.game.WIDTH+32, self.game.BLOCK_SIZE*self.game.HEIGHT+32))
-        pygame.draw.rect(self.screen, self.DARK_GREY, pygame.Rect(288, 88, self.game.BLOCK_SIZE*self.game.WIDTH+24, self.game.BLOCK_SIZE*self.game.HEIGHT+24))
-        pygame.draw.rect(self.screen, self.WHITE, pygame.Rect(296, 96, self.game.BLOCK_SIZE*self.game.WIDTH+8, self.game.BLOCK_SIZE*self.game.HEIGHT+8))
+        pygame.draw.rect(self.screen, self.GREY, pygame.Rect(284, 84, self.game.BLOCK_SIZE*self.game.WIDTH+32, self.game.BLOCK_SIZE*self.game.HEIGHT+32))
+        pygame.draw.rect(self.screen, self.WHITE, pygame.Rect(288, 88, self.game.BLOCK_SIZE*self.game.WIDTH+24, self.game.BLOCK_SIZE*self.game.HEIGHT+24))
+        pygame.draw.rect(self.screen, self.DARK_GREY, pygame.Rect(296, 96, self.game.BLOCK_SIZE*self.game.WIDTH+8, self.game.BLOCK_SIZE*self.game.HEIGHT+8))
         pygame.draw.rect(self.screen, self.GREY, pygame.Rect(300, 100,self.game. BLOCK_SIZE*self.game.WIDTH, self.game.BLOCK_SIZE*self.game.HEIGHT))
+        self.generate_projection()
         for i in range(2, self.game.HEIGHT+2):
             for j in range(0, self.game.WIDTH):
-                pygame.draw.rect(self.screen, pieces.colours[self.game.visual_board[i][j]], self.display_board[i-2][j])
+                if self.game.visual_board[i][j] == -1:
+                    pygame.draw.rect(self.screen, self.WHITE, self.display_board[i-2][j][1])
+                    pygame.draw.rect(self.screen, self.GREY, self.display_board[i-2][j][2])
+                elif self.game.visual_board[i][j] != 0:
+                    pygame.draw.rect(self.screen, self.BLACK, self.display_board[i-2][j][0])
+                    pygame.draw.rect(self.screen, pieces.colours[self.game.visual_board[i][j]-1], self.display_board[i-2][j][1])
+                    pygame.draw.rect(self.screen, pieces.second_colours[self.game.visual_board[i][j]-1], self.display_board[i-2][j][2])
 
         pygame.display.update()
 
     def game_over(self):
-        game_over = pygame.image.load('GamePage/images/Game-Over.png')
+        game_over = pygame.image.load('GamePage/assets/Game-Over.png')
         game_over = pygame.transform.scale(game_over, (400,250))
         self.screen.blit(game_over, (300, 200))
         pygame.display.update()
