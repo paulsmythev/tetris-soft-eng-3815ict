@@ -7,16 +7,23 @@ class Piece:
     rotation = 0
     def __init__(self, x, y):
         self.type = random.choice(pieces.options)
-        self.colour = (pieces.colours[pieces.options.index(self.type)+1])
+        self.colour = pieces.colours[pieces.options.index(self.type)]
+        self.second_colour = pieces.second_colours[pieces.options.index(self.type)]
         self.x = x
         self.y = y
 
 #MODEL
 class Game:
     BLOCK_SIZE = 40
-    OFF_SET = 0.5
+    OFF_SET = 2
     score = 0
     lines = 0
+    prev_lines = 0
+    speeds = [48, 43, 38, 33, 28, 23, 18, 13, 8, 6, 5, 5, 5, 4, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1]
+    tempo = 0
+    songs = ["GamePage/assets/Tetris_Theme_1.mp3", "GamePage/assets/Tetris_Theme_1.2.mp3"
+            ,"GamePage/assets/Tetris_Theme_1.4.mp3", "GamePage/assets/Tetris_Theme_1.6.mp3"
+            ,"GamePage/assets/Tetris_Theme_1.8.mp3", "GamePage/assets/Tetris_Theme_2.mp3"]
 
     def __init__(self, size, level, game_type, game_mode):
         self.board = []
@@ -47,7 +54,7 @@ class Game:
             for j in range(0, len(self.piece.type[self.piece.rotation][i])):
                 if i+self.piece.y < self.HEIGHT+2 and j+self.piece.x < self.WIDTH and j+self.piece.x >= 0:
                     if board[i+self.piece.y][j+self.piece.x] == 0 and self.piece.type[self.piece.rotation][i][j] != 0:
-                        board[i+self.piece.y][j+self.piece.x] = pieces.colours.index(self.piece.colour)
+                        board[i+self.piece.y][j+self.piece.x] = pieces.colours.index(self.piece.colour)+1
 
     def check_move(self, x, y):
         #Find bottom of piece

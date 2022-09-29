@@ -134,14 +134,22 @@ T = [
      [0,1,0]]
 ]
 
-black = (0, 0, 0)
-cyan = (0, 255, 255)
-blue = (0, 0, 255)
-orange = (255, 127, 0)
-yellow = (255, 255, 0)
-green = (0, 255, 0)
-purple = (128, 0, 128)
-red = (255, 0, 0)
+CYAN = (0, 200, 200)
+BLUE = (0, 60, 200)
+ORANGE = (230, 100, 0)
+YELLOW = (255, 200, 0)
+GREEN = (0, 200, 0)
+PURPLE = (180, 0, 180)
+RED = (180, 0, 0)
+
+I_CYAN = (0, 255, 255)
+I_BLUE = (0, 80, 255)
+I_ORANGE = (255, 125, 0)
+I_YELLOW = (255, 255, 0)
+I_GREEN = (0, 255, 0)
+I_PURPLE = (255, 0, 255)
+I_RED = (255, 0, 0)
 
 options = [I,L,J,O,S,T,Z]
-colours = [black, cyan, blue, orange, yellow, green, purple, red]
+colours = [CYAN, BLUE, ORANGE, YELLOW, GREEN, PURPLE, RED]
+second_colours = [I_CYAN, I_BLUE, I_ORANGE, I_YELLOW, I_GREEN, I_PURPLE, I_RED]

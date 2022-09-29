@@ -162,12 +162,12 @@ class TopScoreCheck:
 
                 self.visual_elements()
 
-                close_button = Button("Close", (SCREEN_WIDTH/2+30, SCREEN_HEIGHT*0.9), self.my_font(80), FONT_COLOR)
-                close_button.update(self.screen)
+                self.close_button = Button("Close", (SCREEN_WIDTH/2+30, SCREEN_HEIGHT*0.9), self.my_font(80), FONT_COLOR)
+                self.close_button.update(self.screen)
 
                 if self.g_player_ai == False:
-                    save_button = Button("Save", (530, 700), self.my_font(80), FONT_COLOR)
-                    save_button.update(self.screen)
+                    self.save_button = Button("Save", (530, 700), self.my_font(80), FONT_COLOR)
+                    self.save_button.update(self.screen)
 
                 pygame.display.update()
 
@@ -180,7 +180,7 @@ class TopScoreCheck:
                             running = False
 
                     elif event.type == pygame.MOUSEBUTTONDOWN:
-                        if close_button.checkInput(mouse_pos):
+                        if self.close_button.check_input(mouse_pos):
                             if self.g_player_ai == True:
                                 self.update_json()
                                 running = False
@@ -188,7 +188,7 @@ class TopScoreCheck:
                                 running = False
 
                         elif event.type == pygame.MOUSEBUTTONDOWN:
-                            if save_button.checkInput(mouse_pos):
+                            if self.save_button.check_input(mouse_pos):
                                 self.update_json()
                                 running = False
 
