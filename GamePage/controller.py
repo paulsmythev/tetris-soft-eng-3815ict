@@ -24,8 +24,8 @@ class Controller:
     tetris_sound = pygame.mixer.Sound("GamePage/assets/Tetris.wav")
     tetris_sound.set_volume(0.5)
 
-    def __init__(self, size, level, game_type, game_mode):
-        self.game = Game(size, level, game_type, game_mode)
+    def __init__(self, settings):
+        self.game = Game(settings.game_size, settings.start_level, settings.game_type, settings.game_mode)
         self.display = Display(self.game)
 
     def move_left(self):
