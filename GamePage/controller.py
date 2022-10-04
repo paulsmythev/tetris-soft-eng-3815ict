@@ -156,7 +156,7 @@ class Controller:
                         check = False
 
     def run_game(self):
-        while self.game.level >= (self.game.tempo+1)*5:
+        while self.game.level >= (self.game.tempo+1)*6:
             self.game.tempo += 1
         pygame.mixer.music.load(self.game.songs[self.game.tempo])
         pygame.mixer.music.set_volume(0.15)
