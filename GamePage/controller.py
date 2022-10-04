@@ -219,4 +219,10 @@ class Controller:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         self.run = False
+                
+                # Function that returns best place to move to
+
+                # Move the piece to that column
+
+                #
         pygame.mixer.music.stop()
