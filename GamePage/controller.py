@@ -171,43 +171,52 @@ class Controller:
             if curr_time - prev_time >= self.game.speeds[min(29, self.game.level)]/60:
                 prev_time = curr_time
                 self.move_down()
-            pause = False
-            #Check for inputs
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.run = False
-                if event.type == pygame.KEYDOWN:
-                    #Rotate if up key
-                    if event.key == pygame.K_UP:
-                        self.rotate()
-                    #Finish game dialog box in escape
-                    if event.key == pygame.K_ESCAPE:
-                        self.finish_game()
-                    if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
-                        pause = True
-                    if event.key == pygame.K_m:
-                        if self.sounds == True:
-                            self.sounds = False
-                            pygame.mixer.music.stop()
-                        else:
-                            self.sounds = True
-                            pygame.mixer.music.play(-1, 0, 5000)
-                            
-            #Check for keys being held down
-            keys = pygame.key.get_pressed()
-            #Move left if left key
-            if keys[pygame.K_LEFT]:
-                self.move_left()
-                if pause:
-                    time.sleep(0.1)
-                    pause = False
-            #Move right if right key
-            if keys[pygame.K_RIGHT]:
-                self.move_right()
-                if pause:
-                    time.sleep(0.1)
-                    pause = False
-            #Move down if down key
-            if keys[pygame.K_DOWN]:
-                self.move_down()
+
+            # Human Moves
+            if self.game.game_type == 0:
+                pause = False
+                #Check for inputs
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.run = False
+                    if event.type == pygame.KEYDOWN:
+                        #Rotate if up key
+                        if event.key == pygame.K_UP:
+                            self.rotate()
+                        #Finish game dialog box in escape
+                        if event.key == pygame.K_ESCAPE:
+                            self.finish_game()
+                        if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
+                            pause = True
+                        if event.key == pygame.K_m:
+                            if self.sounds == True:
+                                self.sounds = False
+                                pygame.mixer.music.stop()
+                            else:
+                                self.sounds = True
+                                pygame.mixer.music.play(-1, 0, 5000)
+                                
+                #Check for keys being held down
+                keys = pygame.key.get_pressed()
+                #Move left if left key
+                if keys[pygame.K_LEFT]:
+                    self.move_left()
+                    if pause:
+                        time.sleep(0.1)
+                        pause = False
+                #Move right if right key
+                if keys[pygame.K_RIGHT]:
+                    self.move_right()
+                    if pause:
+                        time.sleep(0.1)
+                        pause = False
+                #Move down if down key
+                if keys[pygame.K_DOWN]:
+                    self.move_down()
+            
+            # AI Moves
+            else:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.run = False
         pygame.mixer.music.stop()
