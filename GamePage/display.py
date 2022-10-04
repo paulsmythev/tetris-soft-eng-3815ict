@@ -13,8 +13,6 @@ class Display:
     
     SCREEN_WIDTH = 1000
     SCREEN_HEIGHT = 1000
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    display_board = []
     
     WHITE = (235,235,235)
     BLACK = (0,0,0)
@@ -25,7 +23,11 @@ class Display:
     YELLOW = (255, 255, 0)
 
     def __init__(self, game):
+        self.display_board = []
         self.game = game
+        if (self.game.WIDTH == 20):
+            self.SCREEN_WIDTH = 1200
+        self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         self.__initialise_board()
         pygame.display.set_caption("TETRIS")
         self.update_display()

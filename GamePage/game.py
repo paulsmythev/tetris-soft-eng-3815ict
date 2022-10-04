@@ -14,7 +14,6 @@ class Piece:
 
 #MODEL
 class Game:
-    BLOCK_SIZE = 40
     OFF_SET = 2
     score = 0
     lines = 0
@@ -29,6 +28,7 @@ class Game:
         self.board = []
         self.visual_board = []
         self.WIDTH, self.HEIGHT = size
+        self.BLOCK_SIZE = 40/(self.WIDTH/10)
         self.SPAWN = math.ceil(self.WIDTH/2)-2
         self.piece = Piece(self.SPAWN, 0)
         self.next_piece = Piece(self.SPAWN, 0)

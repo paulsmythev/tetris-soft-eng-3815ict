@@ -75,12 +75,12 @@ class Configure:
         self.fieldsize1_button = Button("10x20", (200, 300), self.my_font(40), self.CREAM)
         self.fieldsize1_button.rect = pygame.Rect(200-70, 300-20, 140, 40)
 
-        self.display_box(settings.game_size, (350, 300), (15,20))
-        self.fieldsize2_button = Button("15x20", (350, 300), self.my_font(40), self.CREAM)
+        self.display_box(settings.game_size, (350, 300), (15,30))
+        self.fieldsize2_button = Button("15x30", (350, 300), self.my_font(40), self.CREAM)
         self.fieldsize2_button.rect = pygame.Rect(350-70, 300-20, 140, 40)
 
-        self.display_box(settings.game_size, (500, 300), (20,20))
-        self.fieldsize3_button = Button("20x20", (500, 300), self.my_font(40), self.CREAM)
+        self.display_box(settings.game_size, (500, 300), (20,40))
+        self.fieldsize3_button = Button("20x40", (500, 300), self.my_font(40), self.CREAM)
         self.fieldsize3_button.rect = pygame.Rect(500-70, 300-20, 140, 40)
 
         # start level buttons
@@ -151,10 +151,10 @@ class Configure:
                         settings.game_size = (10,20)
                         self.update_display(settings)
                     elif self.fieldsize2_button.check_input(mouse_pos):
-                        settings.game_size = (15,20)
+                        settings.game_size = (15,30)
                         self.update_display(settings)
                     elif self.fieldsize3_button.check_input(mouse_pos):
-                        settings.game_size = (20,20)
+                        settings.game_size = (20,40)
                         self.update_display(settings)
                     elif self.level0_button.check_input(mouse_pos):
                         settings.start_level = 0
