@@ -52,7 +52,6 @@ class MainMenu:
     def options(self):
         configure = Configure()
         configure.config(self.settings)
-        print(self.settings.game_size, self.settings.start_level, self.settings.game_type, self.settings.game_mode)
 
     # creates instance of the top score page
     def high_scores(self):
