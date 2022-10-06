@@ -3,6 +3,7 @@ import time
 import copy
 from GamePage.game import Game
 from GamePage.display import Display
+from top_score.top_score_check import TopScoreCheck
 
 class Controller:
     run = True
@@ -134,6 +135,7 @@ class Controller:
                     pygame.mixer.music.stop()
                     pygame.mixer.Sound.play(self.game_over_sound)
                 self.display.game_over()
+                self.save_score()
                 while self.run:
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
@@ -152,8 +154,16 @@ class Controller:
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.display.yes_button.check_input(mouse_pos):
                         self.run = False
+                        self.save_score()
                     if self.display.no_button.check_input(mouse_pos):
                         check = False
+
+    def save_score(self):
+        top_score = TopScoreCheck()
+        if self.game.game_type == 0:
+            top_score.screen(self.game.score, False)
+        else:
+            top_score.screen(1000, True)
 
     def run_game(self):
         while self.game.level >= (self.game.tempo+1)*6:
@@ -219,7 +229,10 @@ class Controller:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         self.run = False
-                
+                    if event.type == pygame.KEYDOWN:
+                        #Finish game dialog box in escape
+                        if event.key == pygame.K_ESCAPE:
+                            self.finish_game()
                 # Function that returns best place to move to
 
                 # Move the piece to that column

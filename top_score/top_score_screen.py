@@ -13,29 +13,30 @@ BLACK = (0, 0, 0)
 pygame.init()
 
 class TopScoreScreen:
-
-    top_scores_array = []
     concat_array = []
+    
+    def __init__(self):
+        self.top_scores_array = []
+        #calls file_handler to loading json data ? happens when the start menu opens
+        try:
+            self.get_file = FileHandler()
+            self.top_scores_import = []
+            self.top_scores_import = self.get_file.read_json()
+        except:
+            print("cant load JSON")
 
-    #calls file_handler to loading json data ? happens when the start menu opens
-    try:
-        get_file = FileHandler()
-        top_scores_import = get_file.read_json()
-    except:
-        print("cant load JSON")
-
-    #writes each line to array
-    for x in top_scores_import:
-        top_scores_array.append(x)
+        #writes each line to array
+        for x in self.top_scores_import:
+            self.top_scores_array.append(x)
 
 
-    #Formats the names and scores to be displayed 
-    for x in range(len(top_scores_array)):
-        brk = json.dumps(top_scores_array[x])
-        test = json.loads(brk)
-        str_name = test["name"]
-        str_score = "{:,}".format(test["score"])
-        concat_array.append(str_name + " - " + str_score)
+        #Formats the names and scores to be displayed 
+        for x in range(len(self.top_scores_array)):
+            brk = json.dumps(self.top_scores_array[x])
+            test = json.loads(brk)
+            str_name = test["name"]
+            str_score = "{:,}".format(test["score"])
+            self.concat_array.append(str_name + " - " + str_score)
 
     
     def my_font(self, font_size):
