@@ -13,8 +13,6 @@ class Display:
     
     SCREEN_WIDTH = 1000
     SCREEN_HEIGHT = 1000
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    display_board = []
     
     WHITE = (235,235,235)
     BLACK = (0,0,0)
@@ -25,7 +23,11 @@ class Display:
     YELLOW = (255, 255, 0)
 
     def __init__(self, game):
+        self.display_board = []
         self.game = game
+        if (self.game.WIDTH == 20):
+            self.SCREEN_WIDTH = 1200
+        self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         self.__initialise_board()
         pygame.display.set_caption("TETRIS")
         self.update_display()
@@ -67,13 +69,13 @@ class Display:
         pygame.draw.rect(self.screen, self.GREY, pygame.Rect(58, 158, 184, 84))
         my_font = pygame.font.SysFont('Roboto', 30)
             #game type
-        if self.game.game_type == 0:
+        if self.game.game_mode == 0:
             text = my_font.render("Normal Game", True, self.WHITE)
         else:
             text = my_font.render("Extended Game", True, self.WHITE)
         self.screen.blit(text, (75, 170))
             #game mode
-        if self.game.game_mode == 0:
+        if self.game.game_type == 0:
             text = my_font.render("Player Mode", True, self.WHITE)
         else:
             text = my_font.render("AI Mode", True, self.WHITE)

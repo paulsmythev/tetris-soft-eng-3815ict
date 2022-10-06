@@ -1,14 +1,17 @@
 from turtle import back, left, screensize
-
-
 import pygame
 import sys
 from start_menu.button import Button
-
 from GamePage.controller import Controller
 from configurePage.configure import Configure
-
 from top_score.top_score_screen import TopScoreScreen
+
+class GameSettings:
+    # default settigns
+    game_size = (10,20)
+    start_level = 0
+    game_type = 0
+    game_mode = 0
 
 pygame.init()
 class MainMenu:
@@ -20,6 +23,8 @@ class MainMenu:
     # window setup
     SCREEN_WIDTH = 1000
     SCREEN_HEIGHT = 1000
+    # deafualt game settings
+    settings = GameSettings()
 
     # TODO: put this in the view later
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -40,13 +45,13 @@ class MainMenu:
 
     # creates and instance of the game controller
     def play(self):
-        controller = Controller((10,20),0,0,0)
+        controller = Controller(self.settings)
         controller.run_game()
 
     # creates instance of the configure page
     def options(self):
         configure = Configure()
-        configure.config()
+        configure.config(self.settings)
 
     # creates instance of the top score page
     def high_scores(self):

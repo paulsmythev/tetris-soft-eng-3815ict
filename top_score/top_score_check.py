@@ -63,7 +63,6 @@ class TopScoreCheck:
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption("Top Score Achieved")
         self.screen.fill(BLACK)
-        pygame.display.update()
 
         self.header_image = pygame.transform.smoothscale(self.header_image, (225, 175))
         self.screen.blit(self.header_image, (40, 200))

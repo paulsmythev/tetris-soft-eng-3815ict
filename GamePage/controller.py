@@ -3,6 +3,7 @@ import time
 import copy
 from GamePage.game import Game
 from GamePage.display import Display
+from top_score.top_score_check import TopScoreCheck
 
 class Controller:
     run = True
@@ -24,8 +25,8 @@ class Controller:
     tetris_sound = pygame.mixer.Sound("GamePage/assets/Tetris.wav")
     tetris_sound.set_volume(0.5)
 
-    def __init__(self, size, level, game_type, game_mode):
-        self.game = Game(size, level, game_type, game_mode)
+    def __init__(self, settings):
+        self.game = Game(settings.game_size, settings.start_level, settings.game_type, settings.game_mode)
         self.display = Display(self.game)
 
     def move_left(self):
@@ -134,6 +135,7 @@ class Controller:
                     pygame.mixer.music.stop()
                     pygame.mixer.Sound.play(self.game_over_sound)
                 self.display.game_over()
+                self.save_score()
                 while self.run:
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
@@ -152,11 +154,19 @@ class Controller:
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.display.yes_button.check_input(mouse_pos):
                         self.run = False
+                        self.save_score()
                     if self.display.no_button.check_input(mouse_pos):
                         check = False
 
+    def save_score(self):
+        top_score = TopScoreCheck()
+        if self.game.game_type == 0:
+            top_score.screen(self.game.score, False)
+        else:
+            top_score.screen(1000, True)
+
     def run_game(self):
-        while self.game.level >= (self.game.tempo+1)*5:
+        while self.game.level >= (self.game.tempo+1)*6:
             self.game.tempo += 1
         pygame.mixer.music.load(self.game.songs[self.game.tempo])
         pygame.mixer.music.set_volume(0.15)
@@ -171,43 +181,61 @@ class Controller:
             if curr_time - prev_time >= self.game.speeds[min(29, self.game.level)]/60:
                 prev_time = curr_time
                 self.move_down()
-            pause = False
-            #Check for inputs
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.run = False
-                if event.type == pygame.KEYDOWN:
-                    #Rotate if up key
-                    if event.key == pygame.K_UP:
-                        self.rotate()
-                    #Finish game dialog box in escape
-                    if event.key == pygame.K_ESCAPE:
-                        self.finish_game()
-                    if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
-                        pause = True
-                    if event.key == pygame.K_m:
-                        if self.sounds == True:
-                            self.sounds = False
-                            pygame.mixer.music.stop()
-                        else:
-                            self.sounds = True
-                            pygame.mixer.music.play(-1, 0, 5000)
-                            
-            #Check for keys being held down
-            keys = pygame.key.get_pressed()
-            #Move left if left key
-            if keys[pygame.K_LEFT]:
-                self.move_left()
-                if pause:
-                    time.sleep(0.1)
-                    pause = False
-            #Move right if right key
-            if keys[pygame.K_RIGHT]:
-                self.move_right()
-                if pause:
-                    time.sleep(0.1)
-                    pause = False
-            #Move down if down key
-            if keys[pygame.K_DOWN]:
-                self.move_down()
+
+            # Human Moves
+            if self.game.game_type == 0:
+                pause = False
+                #Check for inputs
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.run = False
+                    if event.type == pygame.KEYDOWN:
+                        #Rotate if up key
+                        if event.key == pygame.K_UP:
+                            self.rotate()
+                        #Finish game dialog box in escape
+                        if event.key == pygame.K_ESCAPE:
+                            self.finish_game()
+                        if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
+                            pause = True
+                        if event.key == pygame.K_m:
+                            if self.sounds == True:
+                                self.sounds = False
+                                pygame.mixer.music.stop()
+                            else:
+                                self.sounds = True
+                                pygame.mixer.music.play(-1, 0, 5000)
+                                
+                #Check for keys being held down
+                keys = pygame.key.get_pressed()
+                #Move left if left key
+                if keys[pygame.K_LEFT]:
+                    self.move_left()
+                    if pause:
+                        time.sleep(0.1)
+                        pause = False
+                #Move right if right key
+                if keys[pygame.K_RIGHT]:
+                    self.move_right()
+                    if pause:
+                        time.sleep(0.1)
+                        pause = False
+                #Move down if down key
+                if keys[pygame.K_DOWN]:
+                    self.move_down()
+            
+            # AI Moves
+            else:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.run = False
+                    if event.type == pygame.KEYDOWN:
+                        #Finish game dialog box in escape
+                        if event.key == pygame.K_ESCAPE:
+                            self.finish_game()
+                # Function that returns best place to move to
+
+                # Move the piece to that column
+
+                #
         pygame.mixer.music.stop()
