@@ -15,6 +15,8 @@ class Configure:
     BLACK = (0, 0, 0)
     TURQUOISE = (72, 209, 204)
     ORANGE = (255, 165, 0)
+    YELLOW = (255, 255, 0)
+    RED = (255, 0, 0)
 
     # window setup
     SCREEN_WIDTH = 1000
@@ -40,17 +42,17 @@ class Configure:
 
         # create headings
     def headings(self):
-        self.settings_title = self.my_font(100).render("Settings", True, self.CREAM)
-        self.game_size_heading = self.my_font(60).render("Game Size", True, self.CREAM)
-        self.start_level_heading = self.my_font(60).render("Start Level", True, self.CREAM)
-        self.game_mode_heading= self.my_font(60).render("Game Mode", True, self.CREAM)
-        self.game_type_heading= self.my_font(60).render("Game Type", True, self.CREAM)
+        self.settings_title = self.my_font(150).render("Settings", True, self.YELLOW)
+        self.game_size_heading = self.my_font(70).render("Game Size", True, self.YELLOW)
+        self.start_level_heading = self.my_font(70).render("Start Level", True, self.YELLOW)
+        self.game_mode_heading= self.my_font(70).render("Game Mode", True, self.YELLOW)
+        self.game_type_heading= self.my_font(70).render("Game Type", True, self.YELLOW)
 
         self.title_rect = self.settings_title.get_rect(center=(self.SCREEN_WIDTH/2, 100))
-        self.game_size_rect = self.game_size_heading.get_rect(midleft=(100, 250))
-        self.start_level_rect = self.start_level_heading.get_rect(midleft=(100, 400))
-        self.game_mode_rect = self.game_mode_heading.get_rect(midleft=(100, 550))
-        self.game_type_rect = self.game_type_heading.get_rect(midleft=(100, 700))
+        self.game_size_rect = self.game_size_heading.get_rect(midleft=(120, 250))
+        self.start_level_rect = self.start_level_heading.get_rect(midleft=(120, 400))
+        self.game_mode_rect = self.game_mode_heading.get_rect(midleft=(120, 550))
+        self.game_type_rect = self.game_type_heading.get_rect(midleft=(120, 700))
 
     def display_box(self, option, pos, value):
         pygame.draw.rect(self.screen, self.CREAM, pygame.Rect(pos[0]-72,pos[1]-22,144,44))
@@ -63,7 +65,7 @@ class Configure:
         self.screen.fill(self.BLACK)
         self.headings()
 
-        wallpaper = pygame.image.load('GamePage/assets/Wallpaper.jpg')
+        wallpaper = pygame.image.load('GamePage/assets/Settings_Wallpaper.jpg')
         wallpaper = pygame.transform.scale(wallpaper, (1000,1000))
         self.screen.blit(wallpaper, (0, 0))
 
@@ -123,7 +125,7 @@ class Configure:
         self.ai_button.rect = pygame.Rect(350-70, 750-20, 140, 40)
 
         # close button
-        self.close_button = Button("Close", (self.SCREEN_WIDTH*0.85, self.SCREEN_HEIGHT*0.90), self.my_font(50), self.CREAM)
+        self.close_button = Button("Close", (self.SCREEN_WIDTH*0.85, self.SCREEN_HEIGHT*0.90), self.my_font(50), self.RED)
 
 
         #blit to the screen

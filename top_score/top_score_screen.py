@@ -5,10 +5,11 @@ from start_menu.button import Button
 from top_score.file_handler import FileHandler
 
 NUMBER_IMAGE = (50, 50)
-FONT_COLOR = (255, 255, 224)
+FONT_COLOR = (255, 255, 0)
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
 BLACK = (0, 0, 0)
+RED = (255, 0, 0)
 
 pygame.init()
 
@@ -66,45 +67,45 @@ class TopScoreScreen:
         pygame.display.set_caption('Tetris - Top Scores')
         self.screen.fill(BLACK)
 
-        wallpaper = pygame.image.load('GamePage/assets/Wallpaper.jpg')
+        wallpaper = pygame.image.load('GamePage/assets/Score_Wallpaper.jpg')
         wallpaper = pygame.transform.scale(wallpaper, (1000,1000))
         self.screen.blit(wallpaper, (0, 0))
 
         self.header_image = pygame.transform.smoothscale(self.header_image, (225, 175))
-        self.screen.blit(self.header_image, (135, 8))
+        self.screen.blit(self.header_image, (35, 8))
 
         self.font = pygame.font.Font(None, 100)
         self.text = self.font.render("Top 10 Scores", 1, FONT_COLOR)
-        self.screen.blit(self.text, (390, 80))
+        self.screen.blit(self.text, (290, 80))
 
         #Displays the images for 1 - 10
         self.score1 = pygame.transform.smoothscale(self.score1, NUMBER_IMAGE)
-        self.screen.blit(self.score1, (250, 200))
+        self.screen.blit(self.score1, (150, 200))
         self.score2 = pygame.transform.smoothscale(self.score2, NUMBER_IMAGE)
-        self.screen.blit(self.score2, (250, 270))
+        self.screen.blit(self.score2, (150, 270))
         self.score3 = pygame.transform.smoothscale(self.score3, NUMBER_IMAGE)
-        self.screen.blit(self.score3, (250, 340))
+        self.screen.blit(self.score3, (150, 340))
         self.score4 = pygame.transform.smoothscale(self.score4, NUMBER_IMAGE)
-        self.screen.blit(self.score4, (250, 410))
+        self.screen.blit(self.score4, (150, 410))
         self.score5 = pygame.transform.smoothscale(self.score5, NUMBER_IMAGE)
-        self.screen.blit(self.score5, (250, 480))
+        self.screen.blit(self.score5, (150, 480))
         self.score6 = pygame.transform.smoothscale(self.score6, NUMBER_IMAGE)
-        self.screen.blit(self.score6, (250, 550))
+        self.screen.blit(self.score6, (150, 550))
         self.score7 = pygame.transform.smoothscale(self.score7, NUMBER_IMAGE)
-        self.screen.blit(self.score7, (250, 620))
+        self.screen.blit(self.score7, (150, 620))
         self.score8 = pygame.transform.smoothscale(self.score8, NUMBER_IMAGE)
-        self.screen.blit(self.score8, (250, 690))
+        self.screen.blit(self.score8, (150, 690))
         self.score9 = pygame.transform.smoothscale(self.score9, NUMBER_IMAGE)
-        self.screen.blit(self.score9, (250, 760))
+        self.screen.blit(self.score9, (150, 760))
         self.score10 = pygame.transform.smoothscale(self.score10, NUMBER_IMAGE)
-        self.screen.blit(self.score10, (250, 830))
+        self.screen.blit(self.score10, (150, 830))
 
         #Display names and scores on the page, 42 spacing
         font = pygame.font.Font(None, 50)
         spacing = 210
         for x in range(len(self.concat_array)):
             text = font.render(self.concat_array[x], 1, FONT_COLOR)
-            self.screen.blit(text, (325, spacing))
+            self.screen.blit(text, (225, spacing))
             spacing += 70
 
     #Handles the events for running and closing the page 
@@ -115,7 +116,7 @@ class TopScoreScreen:
 
             self.visual_elements()
 
-            close_button = Button("Close", (490, 925), self.my_font(80), FONT_COLOR)
+            close_button = Button("Close", (490, 925), self.my_font(80), RED)
             close_button.update(self.screen)
 
             pygame.display.update()
