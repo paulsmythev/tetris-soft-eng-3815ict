@@ -129,7 +129,7 @@ class Display:
         #Display Game Board
         pygame.draw.rect(self.screen, self.GREY, pygame.Rect(284, 84, self.game.BLOCK_SIZE*self.game.WIDTH+32, self.game.BLOCK_SIZE*self.game.HEIGHT+32))
         pygame.draw.rect(self.screen, self.WHITE, pygame.Rect(288, 88, self.game.BLOCK_SIZE*self.game.WIDTH+24, self.game.BLOCK_SIZE*self.game.HEIGHT+24))
-        pygame.draw.rect(self.screen, self.DARK_GREY, pygame.Rect(296, 96, self.game.BLOCK_SIZE*self.game.WIDTH+8, self.game.BLOCK_SIZE*self.game.HEIGHT+8))
+        pygame.draw.rect(self.screen, self.BLACK, pygame.Rect(296, 96, self.game.BLOCK_SIZE*self.game.WIDTH+8, self.game.BLOCK_SIZE*self.game.HEIGHT+8))
         pygame.draw.rect(self.screen, self.GREY, pygame.Rect(300, 100,self.game. BLOCK_SIZE*self.game.WIDTH, self.game.BLOCK_SIZE*self.game.HEIGHT))
         self.generate_projection()
         for i in range(2, self.game.HEIGHT+2):
