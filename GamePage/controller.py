@@ -336,18 +336,27 @@ class Controller:
                             else:
                                 self.sounds = True
                                 pygame.mixer.music.play(-1, 0, 5000)
-                
-                # Function that returns best place to move to
-                if self.need_ai:
-                    rotation, column = self.best_move(self.game.board, self.game.piece)
-                    self.need_ai = False
-                if self.game.piece.rotation != rotation:
-                    self.rotate()
-                elif column < self.game.piece.x:
-                    self.move_left()
-                elif column > self.game.piece.x:
-                    self.move_right()
-                else:
-                    self.move_down()
+                        if event.key == pygame.K_p:
+                            if self.game_pause == False:
+                                self.game_pause = True
+                                pygame.mixer.music.stop()
+                                self.display.pause()
+                            else:
+                                self.game_pause = False
+                                pygame.mixer.music.play(-1, 0, 5000)
+                                
+                if not self.game_pause:
+                    # Function that returns best place to move to
+                    if self.need_ai:
+                        rotation, column = self.best_move(self.game.board, self.game.piece)
+                        self.need_ai = False
+                    if self.game.piece.rotation != rotation:
+                        self.rotate()
+                    elif column < self.game.piece.x:
+                        self.move_left()
+                    elif column > self.game.piece.x:
+                        self.move_right()
+                    else:
+                        self.move_down()
 
         pygame.mixer.music.stop()
