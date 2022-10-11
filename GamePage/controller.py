@@ -139,11 +139,15 @@ class Controller:
                     pygame.mixer.music.stop()
                     pygame.mixer.Sound.play(self.game_over_sound)
                 self.display.game_over()
-                self.save_score()
+                start = time.time()
                 while self.run:
+                    if time.time()-start > 3:
+                        self.run = False
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             self.run = False
+                self.save_score()
+                break
 
     def finish_game(self):
         #Display finish game menu
