@@ -135,11 +135,16 @@ class Controller:
                     pygame.mixer.music.stop()
                     pygame.mixer.Sound.play(self.game_over_sound)
                 self.display.game_over()
-                self.save_score()
+                start = time.time()
                 while self.run:
+                    if time.time()-start > 3:
+                        self.run = False
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             self.run = False
+                self.save_score()
+                break
+                
 
     def finish_game(self):
         #Display finish game menu
@@ -163,7 +168,7 @@ class Controller:
         if self.game.game_type == 0:
             top_score.screen(self.game.score, False)
         else:
-            top_score.screen(1000, True)
+            top_score.screen(self.game.score, True)
 
     def run_game(self):
         while self.game.level >= (self.game.tempo+1)*6:
@@ -181,6 +186,8 @@ class Controller:
             if curr_time - prev_time >= self.game.speeds[min(29, self.game.level)]/60:
                 prev_time = curr_time
                 self.move_down()
+                if (not self.run):
+                    break
 
             # Human Moves
             if self.game.game_type == 0:
@@ -223,6 +230,8 @@ class Controller:
                 #Move down if down key
                 if keys[pygame.K_DOWN]:
                     self.move_down()
+                    if (not self.run):
+                        break
             
             # AI Moves
             else:
