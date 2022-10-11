@@ -13,9 +13,9 @@ BLACK = (0, 0, 0)
 pygame.init()
 
 class TopScoreScreen:
-    concat_array = []
     
     def __init__(self):
+        self.concat_array = []
         self.top_scores_array = []
         #calls file_handler to loading json data ? happens when the start menu opens
         try:

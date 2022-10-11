@@ -46,7 +46,7 @@ class Display:
         
     def generate_projection(self):
         depth = 0
-        while (self.game.check_move(self.game.piece.x, self.game.piece.y+depth) == 0):
+        while (self.game.check_move(self.game.piece.x, self.game.piece.y+depth, self.game.piece.rotation) == 0):
             depth += 1
         depth -= 1
         for i in range(0, len(self.game.piece.type[self.game.piece.rotation])):

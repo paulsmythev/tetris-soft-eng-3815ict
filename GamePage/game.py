@@ -36,7 +36,7 @@ class Game:
         self.game_type = game_type
         self.game_mode = game_mode
         self.__initialise_boards()
-        self.add_piece(self.visual_board)
+        self.add_piece(self.visual_board, self.piece)
 
     def __initialise_boards(self):
         #Initialise game board
@@ -49,18 +49,18 @@ class Game:
         self.piece = self.next_piece
         self.next_piece = Piece(self.SPAWN, 0)
 
-    def add_piece(self, board):
-        for i in range(0, len(self.piece.type[self.piece.rotation])):
-            for j in range(0, len(self.piece.type[self.piece.rotation][i])):
-                if i+self.piece.y < self.HEIGHT+2 and j+self.piece.x < self.WIDTH and j+self.piece.x >= 0:
-                    if board[i+self.piece.y][j+self.piece.x] == 0 and self.piece.type[self.piece.rotation][i][j] != 0:
-                        board[i+self.piece.y][j+self.piece.x] = pieces.colours.index(self.piece.colour)+1
+    def add_piece(self, board, piece):
+        for i in range(0, len(piece.type[piece.rotation])):
+            for j in range(0, len(piece.type[piece.rotation][i])):
+                if i+piece.y < self.HEIGHT+2 and j+piece.x < self.WIDTH and j+piece.x >= 0:
+                    if board[i+piece.y][j+piece.x] == 0 and piece.type[piece.rotation][i][j] != 0:
+                        board[i+piece.y][j+piece.x] = pieces.colours.index(piece.colour)+1
 
-    def check_move(self, x, y):
+    def check_move(self, x, y, rotation):
         #Find bottom of piece
         bottom = 0
-        for i in range(0, len(self.piece.type[self.piece.rotation])):
-            if 1 in self.piece.type[self.piece.rotation][i]:
+        for i in range(0, len(self.piece.type[rotation])):
+            if 1 in self.piece.type[rotation][i]:
                 bottom = i
         #Check bottom boundary
         if y+bottom >= self.HEIGHT+2:
@@ -68,8 +68,8 @@ class Game:
         
         #Find left of piece
         left = 0
-        for i in range(len(self.piece.type[self.piece.rotation][0])-1, -1, -1):
-            for j in self.piece.type[self.piece.rotation]:
+        for i in range(len(self.piece.type[rotation][0])-1, -1, -1):
+            for j in self.piece.type[rotation]:
                 if j[i] == 1:
                     left = i
         #Check left boundary
@@ -78,8 +78,8 @@ class Game:
         
         #Find right of piece
         right = 0
-        for i in range(0, len(self.piece.type[self.piece.rotation][0])):
-            for j in self.piece.type[self.piece.rotation]:
+        for i in range(0, len(self.piece.type[rotation][0])):
+            for j in self.piece.type[rotation]:
                 if j[i] == 1:
                     right = i
         #Check right boundary
@@ -87,16 +87,16 @@ class Game:
             return 1
         
         #Check bottom collision
-        for i in range(0, len(self.piece.type[self.piece.rotation][0])):
+        for i in range(0, len(self.piece.type[rotation][0])):
             if x+i < self.WIDTH and x+i >= 0:
-                if self.board[y+bottom][x+i] != 0 and self.piece.type[self.piece.rotation][bottom][i] != 0:
+                if self.board[y+bottom][x+i] != 0 and self.piece.type[rotation][bottom][i] != 0:
                     return 2
         
         #Check side collision
-        for i in range(0, len(self.piece.type[self.piece.rotation])):
-            for j in range(0, len(self.piece.type[self.piece.rotation][i])):
+        for i in range(0, len(self.piece.type[rotation])):
+            for j in range(0, len(self.piece.type[rotation][i])):
                 if i+y < self.HEIGHT+2 and x+j < self.WIDTH and x+j >= 0:
-                    if self.board[i+y][j+x] != 0 and self.piece.type[self.piece.rotation][i][j] != 0:
+                    if self.board[i+y][j+x] != 0 and self.piece.type[rotation][i][j] != 0:
                         return 1
         
         #Return 0 if no collisions

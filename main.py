@@ -1,6 +1,4 @@
-from turtle import back, left, screensize
 import pygame
-import sys
 from start_menu.button import Button
 from GamePage.controller import Controller
 from configurePage.configure import Configure
@@ -10,7 +8,7 @@ class GameSettings:
     # default settigns
     game_size = (10,20)
     start_level = 0
-    game_type = 0
+    game_type = 1
     game_mode = 0
 
 pygame.init()
@@ -98,7 +96,7 @@ class MainMenu:
                     exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if play_button.check_input(mouse_pos):
-                        self.play()
+                        self.play() 
                     elif options_button.check_input(mouse_pos):
                         self.options()
                     elif score_button.check_input(mouse_pos):
