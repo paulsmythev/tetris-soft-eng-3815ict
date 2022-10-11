@@ -83,7 +83,7 @@ class TopScoreCheck:
         elif self.pos_ach == 5:
             self.position_image = pygame.transform.smoothscale(self.score5, (120, 120))
         elif self.pos_ach == 6:
-            self.position_image = pygame.transform.smoothscale(self.score6 (120, 120))
+            self.position_image = pygame.transform.smoothscale(self.score6, (120, 120))
         elif self.pos_ach == 7:
             self.position_image = pygame.transform.smoothscale(self.score7, (120, 120))
         elif self.pos_ach == 8:

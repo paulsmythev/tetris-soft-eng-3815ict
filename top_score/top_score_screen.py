@@ -18,6 +18,7 @@ class TopScoreScreen:
     def __init__(self):
         self.concat_array = []
         self.top_scores_array = []
+        self.concat_array.clear()
         #calls file_handler to loading json data ? happens when the start menu opens
         try:
             self.get_file = FileHandler()

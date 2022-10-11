@@ -141,7 +141,7 @@ class Controller:
                 self.display.game_over()
                 start = time.time()
                 while self.run:
-                    if time.time()-start > 5:
+                    if time.time()-start > 3:
                         self.run = False
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
@@ -316,6 +316,8 @@ class Controller:
                 #Move down if down key
                 if keys[pygame.K_DOWN]:
                     self.move_down()
+                    if (not self.run):
+                        break
             
             # AI Moves
             else:

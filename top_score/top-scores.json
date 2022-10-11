@@ -1,42 +1,43 @@
 [
- {
-  "name": "AI",
-  "score": 170900
- },
- {
-  "name": "AI",
-  "score": 57800
- },
- {
-  "name": "Omari Ravindra",
-  "score": 20000
- },
- {
-  "name": "AI",
-  "score": 12500
- },
- {
-  "name": "AI",
-  "score": 11500
- },
- {
-  "name": "AI",
-  "score": 11500
- },
- {
-  "name": "AI",
-  "score": 10500
- },
- {
-  "name": "AI",
-  "score": 10200
- },
- {
-  "name": "AI",
-  "score": 10200
- },
- {
-  "name": "Euthalia Albanus",
-  "score": 10000
- }
-]
+    {
+        "name": "AI",
+        "score": 170900
+    },
+    {
+     "name": "Euthalia Albanus", 
+     "score": 10000
+    },
+    {
+     "name": "Julissa Paz", 
+     "score": 9000
+    },
+    {
+     "name": "Gautier Mac Beatha", 
+     "score": 8000
+    },
+    {
+     "name": "Mumtaz Sarita", 
+     "score": 5000
+    },
+    {
+     "name": "Antal Vanda", 
+     "score": 3000
+     }
+    ,
+    {
+     "name": "Ancuta Honorinus", 
+     "score": 500
+    },
+    {
+     "name": "Yeong-Gi Leandra", 
+     "score": 300
+    },
+    {
+     "name": "Minttu Tomas", 
+     "score": 200
+    },
+    {
+     "name": "Justine Isolda", 
+     "score": 100
+    }
+ ]
