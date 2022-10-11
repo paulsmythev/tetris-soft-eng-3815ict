@@ -53,9 +53,12 @@ class Display:
         self.screen.blit(wallpaper, (0, 0))
 
         #Display Group Number
+        pygame.draw.rect(self.screen, self.WHITE, pygame.Rect(800, 900, 120, 50))
+        pygame.draw.rect(self.screen, self.DARK_GREY, pygame.Rect(804, 904, 112, 42))
+        pygame.draw.rect(self.screen, self.GREY, pygame.Rect(808, 908, 104, 34))
         my_font = pygame.font.SysFont('Roboto', 30)
         text = my_font.render("GROUP 9", True, self.YELLOW)
-        self.screen.blit(text, (850,950))
+        self.screen.blit(text, (815,915))
 
         #Display Game Settings
         pygame.draw.rect(self.screen, self.WHITE, pygame.Rect(50, 150, 200, 100))
