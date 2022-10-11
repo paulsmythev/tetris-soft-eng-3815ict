@@ -58,6 +58,7 @@ J = [
      [0,1,0],
      [1,1,0]]
 ]
+
 O = [
     [[0,1,1,0],
      [0,1,1,0],
@@ -134,6 +135,46 @@ T = [
      [0,1,0]]
 ]
 
+EI = [
+    [[0,0,0],
+     [1,1,1],
+     [0,0,0]],
+     
+    [[0,1,0],
+     [0,1,0],
+     [0,1,0]],
+    
+    [[0,0,0],
+     [1,1,1],
+     [0,0,0]],
+    
+    [[0,1,0],
+     [0,1,0],
+     [0,1,0]]
+]
+
+EL = [
+    [[0,1,0,0],
+     [0,1,1,0],
+     [0,0,0,0],
+     [0,0,0,0]],
+    
+    [[0,1,1,0],
+     [0,1,0,0],
+     [0,0,0,0],
+     [0,0,0,0]],
+    
+    [[0,1,1,0],
+     [0,0,1,0],
+     [0,0,0,0],
+     [0,0,0,0]],
+    
+    [[0,0,1,0],
+     [0,1,1,0],
+     [0,0,0,0],
+     [0,0,0,0]]
+]
+
 CYAN = (0, 200, 200)
 BLUE = (0, 60, 200)
 ORANGE = (230, 100, 0)
@@ -151,5 +192,6 @@ I_PURPLE = (255, 0, 255)
 I_RED = (255, 0, 0)
 
 options = [I,L,J,O,S,T,Z]
-colours = [CYAN, BLUE, ORANGE, YELLOW, GREEN, PURPLE, RED]
-second_colours = [I_CYAN, I_BLUE, I_ORANGE, I_YELLOW, I_GREEN, I_PURPLE, I_RED]
+extended_options = [I,L,J,O,S,T,Z,EI,EL]
+colours = [CYAN, BLUE, ORANGE, YELLOW, GREEN, PURPLE, RED, CYAN, BLUE]
+second_colours = [I_CYAN, I_BLUE, I_ORANGE, I_YELLOW, I_GREEN, I_PURPLE, I_RED, I_CYAN, I_BLUE]
