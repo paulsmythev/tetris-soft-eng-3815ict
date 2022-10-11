@@ -1,6 +1,4 @@
-from turtle import back, left, screensize
 import pygame
-import sys
 from start_menu.button import Button
 from GamePage.controller import Controller
 from configurePage.configure import Configure
