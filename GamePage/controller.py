@@ -148,6 +148,7 @@ class Controller:
                             self.run = False
                 self.save_score()
                 break
+                
 
     def finish_game(self):
         #Display finish game menu
