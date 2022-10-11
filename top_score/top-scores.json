@@ -1,7 +1,15 @@
 [
  {
+  "name": "AI",
+  "score": 57800
+ },
+ {
   "name": "Omari Ravindra",
   "score": 20000
+ },
+ {
+  "name": "AI",
+  "score": 12500
  },
  {
   "name": "AI",
@@ -30,13 +38,5 @@
  {
   "name": "Julissa Paz",
   "score": 9000
- },
- {
-  "name": "Gautier Mac Beatha",
-  "score": 8000
- },
- {
-  "name": "Mumtaz Sarita",
-  "score": 5000
  }
 ]

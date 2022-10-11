@@ -11,6 +11,7 @@ class Controller:
     run = True
     sounds = True
     need_ai = True
+    game_pause = False
     game_over_sound = pygame.mixer.Sound("GamePage/assets/Game_Over.wav")
     game_over_sound.set_volume(0.25)
     drop_sound = pygame.mixer.Sound("GamePage/assets/Soft_Drop.wav")
@@ -113,7 +114,7 @@ class Controller:
             self.game.visual_board[i] = [-1]*self.game.WIDTH
         if len(full_lines) > 0:
             self.display.update_display()
-            time.sleep(0.5)
+            time.sleep(0.2)
         for i in full_lines:
             self.game.board.pop(i)
             self.game.board.insert(2, [0]*self.game.WIDTH)
@@ -141,7 +142,7 @@ class Controller:
                 self.display.game_over()
                 start = time.time()
                 while self.run:
-                    if time.time()-start > 3:
+                    if time.time()-start > 5:
                         self.run = False
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
@@ -174,9 +175,10 @@ class Controller:
             top_score.screen(self.game.score, True)
 
     def best_move(self, board, piece):
-        test_piece = Piece(0, 0)
+        total = 0
+        test_piece = Piece(0, 0, self.game.game_mode)
         test_piece.type = piece.type
-        best_move = [0,0,0]
+        best_move = [-100,0,0]
         for rotation in range(0, 4):
             test_piece.rotation = rotation
             test_piece.x = 0
@@ -192,12 +194,14 @@ class Controller:
                     if 1 in test_piece.type[rotation][i]:
                         bottom = i
                 score = self.analyse_board(temp_board, test_piece.y+bottom)
+                total += 1
                 if score > best_move[0]:
                     best_move[0] = score
                     best_move[1] = rotation
                     best_move[2] = test_piece.x
                 test_piece.y = 0
                 test_piece.x += 1
+        print(best_move[0], total)
         return best_move[1], best_move[2]
 
     def analyse_board(self, board, depth):
@@ -206,16 +210,39 @@ class Controller:
             for column in range(0, len(board[row])):
                 if board[row][column] == 0:
                     above = row
-                    gap = 0
                     while above >= 0:
                         if board[above][column] != 0:
-                            score -= 1
-                            if gap >= 3:
-                                score -= gap
+                            score -= 2
                             break
-                        else:
-                            gap += 1
                         above -= 1
+        gap_size = 0
+        for row in range(len(board)-1, 0, -1):
+            if board[row][0] != 0 or board[row][1] == 0:
+                gap_size = 0
+            if board[row][0] == 0 and board[row][1] != 0:
+                gap_size += 1
+            if gap_size >= 3:
+                score -= 1
+
+        gap_size = 0
+        for row in range(len(board)-1, 0, -1):
+            if board[row][len(board[row])-1] != 0 or board[row][len(board[row])-2] == 0:
+                gap_size = 0
+            if board[row][len(board[row])-1] == 0 and board[row][len(board[row])-2] != 0:
+                gap_size += 1
+            if gap_size >= 3:
+                score -= 1
+        
+        for column in range(1, len(board[0])-1):
+            gap_size = 0
+            for row in range(len(board)-1, 0, -1):
+                if board[row][column] != 0 or board[row][column-1] == 0 or board[row][column+1] == 0:
+                    gap_size = 0
+                if board[row][column] == 0 and board[row][column-1] != 0 and board[row][column+1] != 0:
+                    gap_size += 1
+                if gap_size >= 3:
+                    score -= 1
+        
         return score
 
     def run_game(self):
@@ -228,12 +255,13 @@ class Controller:
         clock = pygame.time.Clock()
         prev_time = time.time()
         while self.run:
-            #Move down every second
-            clock.tick(12)
-            curr_time = time.time()
-            if curr_time - prev_time >= self.game.speeds[min(29, self.game.level)]/60:
-                prev_time = curr_time
-                self.move_down()
+            if not self.game_pause:
+                #Move down every second
+                clock.tick(12)
+                curr_time = time.time()
+                if curr_time - prev_time >= self.game.speeds[min(29, self.game.level)]/60:
+                    prev_time = curr_time
+                    self.move_down()
 
             # Human Moves
             if self.game.game_type == 0:
@@ -258,7 +286,17 @@ class Controller:
                             else:
                                 self.sounds = True
                                 pygame.mixer.music.play(-1, 0, 5000)
+                        if event.key == pygame.K_p:
+                            if self.game_pause == False:
+                                self.game_pause = True
+                                pygame.mixer.music.stop()
+                            else:
+                                self.game_pause = False
+                                pygame.mixer.music.play(-1, 0, 5000)
                                 
+                if self.game_pause:
+                    continue
+
                 #Check for keys being held down
                 keys = pygame.key.get_pressed()
                 #Move left if left key
@@ -286,6 +324,13 @@ class Controller:
                         #Finish game dialog box in escape
                         if event.key == pygame.K_ESCAPE:
                             self.finish_game()
+                        if event.key == pygame.K_m:
+                            if self.sounds == True:
+                                self.sounds = False
+                                pygame.mixer.music.stop()
+                            else:
+                                self.sounds = True
+                                pygame.mixer.music.play(-1, 0, 5000)
                 
                 # Function that returns best place to move to
                 if self.need_ai:

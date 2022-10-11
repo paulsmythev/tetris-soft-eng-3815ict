@@ -5,10 +5,16 @@ from GamePage import pieces
 
 class Piece:
     rotation = 0
-    def __init__(self, x, y):
-        self.type = random.choice(pieces.options)
-        self.colour = pieces.colours[pieces.options.index(self.type)]
-        self.second_colour = pieces.second_colours[pieces.options.index(self.type)]
+    def __init__(self, x, y, game_mode):
+        if game_mode == 0:
+            self.type = random.choice(pieces.options)
+            self.colour = pieces.colours[pieces.options.index(self.type)]
+            self.second_colour = pieces.second_colours[pieces.options.index(self.type)]
+        else:
+            print("Hello")
+            self.type = random.choice(pieces.extended_options)
+            self.colour = pieces.colours[pieces.extended_options.index(self.type)]
+            self.second_colour = pieces.second_colours[pieces.extended_options.index(self.type)]
         self.x = x
         self.y = y
 
@@ -25,16 +31,16 @@ class Game:
             ,"GamePage/assets/Tetris_Theme_1.8.mp3", "GamePage/assets/Tetris_Theme_2.mp3"]
 
     def __init__(self, size, level, game_type, game_mode):
+        self.level = level
+        self.game_type = game_type
+        self.game_mode = game_mode
         self.board = []
         self.visual_board = []
         self.WIDTH, self.HEIGHT = size
         self.BLOCK_SIZE = 40/(self.WIDTH/10)
         self.SPAWN = math.ceil(self.WIDTH/2)-2
-        self.piece = Piece(self.SPAWN, 0)
-        self.next_piece = Piece(self.SPAWN, 0)
-        self.level = level
-        self.game_type = game_type
-        self.game_mode = game_mode
+        self.piece = Piece(self.SPAWN, 0, self.game_mode)
+        self.next_piece = Piece(self.SPAWN, 0, self.game_mode)
         self.__initialise_boards()
         self.add_piece(self.visual_board, self.piece)
 
@@ -47,7 +53,7 @@ class Game:
 
     def generate_piece(self):
         self.piece = self.next_piece
-        self.next_piece = Piece(self.SPAWN, 0)
+        self.next_piece = Piece(self.SPAWN, 0, self.game_mode)
 
     def add_piece(self, board, piece):
         for i in range(0, len(piece.type[piece.rotation])):

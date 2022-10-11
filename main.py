@@ -8,7 +8,7 @@ class GameSettings:
     # default settigns
     game_size = (10,20)
     start_level = 0
-    game_type = 1
+    game_type = 0
     game_mode = 0
 
 pygame.init()

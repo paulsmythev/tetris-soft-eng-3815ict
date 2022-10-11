@@ -119,7 +119,7 @@ class Display:
         for i in range(0, len(self.game.next_piece.type[0])):
             for j in range(0, len(self.game.next_piece.type[0][i])):
                 if self.game.next_piece.type[0][i][j] == 1:
-                    if self.game.next_piece.type == pieces.O:
+                    if self.game.next_piece.type == pieces.O or self.game.next_piece.type == pieces.EL:
                         pygame.draw.rect(self.screen, self.game.next_piece.colour, pygame.Rect(765+30*j, 210+30*i, 28, 28))
                         pygame.draw.rect(self.screen, self.game.next_piece.second_colour, pygame.Rect(765+30*j+1, 210+30*i+1, 26, 26))
                     elif self.game.next_piece.type == pieces.I:
