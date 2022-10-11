@@ -1,6 +1,10 @@
 [
  {
   "name": "AI",
+  "score": 170900
+ },
+ {
+  "name": "AI",
   "score": 57800
  },
  {
@@ -34,9 +38,5 @@
  {
   "name": "Euthalia Albanus",
   "score": 10000
- },
- {
-  "name": "Julissa Paz",
-  "score": 9000
  }
 ]

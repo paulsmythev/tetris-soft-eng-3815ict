@@ -25,8 +25,6 @@ class Display:
     def __init__(self, game):
         self.display_board = []
         self.game = game
-        if (self.game.WIDTH == 20):
-            self.SCREEN_WIDTH = 1200
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         self.__initialise_board()
         pygame.display.set_caption("TETRIS")
@@ -57,6 +55,10 @@ class Display:
 
     def update_display(self):
         self.screen.fill(self.BLACK)
+        
+        wallpaper = pygame.image.load('GamePage/assets/Wallpaper.jpg')
+        wallpaper = pygame.transform.scale(wallpaper, (1000,1000))
+        self.screen.blit(wallpaper, (0, 0))
 
         #Display Group Number
         my_font = pygame.font.SysFont('Roboto', 30)
@@ -170,4 +172,10 @@ class Display:
         self.yes_button.update(self.screen)
         self.no_button = Button("NO", (600, 340), my_font, self.WHITE)
         self.no_button.update(self.screen)
+        pygame.display.update()
+    
+    def pause(self):
+        pause = pygame.image.load('GamePage/assets/pause.png')
+        pause = pygame.transform.scale(pause, (400,150))
+        self.screen.blit(pause, (300, 200))
         pygame.display.update()

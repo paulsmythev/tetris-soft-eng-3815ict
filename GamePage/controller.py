@@ -2,7 +2,6 @@ import pygame
 import time
 import copy
 
-from pyparsing import col
 from GamePage.game import Game, Piece
 from GamePage.display import Display
 from top_score.top_score_check import TopScoreCheck
@@ -165,6 +164,9 @@ class Controller:
                         self.run = False
                         self.save_score()
                     if self.display.no_button.check_input(mouse_pos):
+                        self.display.update_display()
+                        if self.game_pause:
+                            self.display.pause()
                         check = False
 
     def save_score(self):
@@ -201,7 +203,6 @@ class Controller:
                     best_move[2] = test_piece.x
                 test_piece.y = 0
                 test_piece.x += 1
-        print(best_move[0], total)
         return best_move[1], best_move[2]
 
     def analyse_board(self, board, depth):
@@ -272,7 +273,7 @@ class Controller:
                         self.run = False
                     if event.type == pygame.KEYDOWN:
                         #Rotate if up key
-                        if event.key == pygame.K_UP:
+                        if event.key == pygame.K_UP and not self.game_pause:
                             self.rotate()
                         #Finish game dialog box in escape
                         if event.key == pygame.K_ESCAPE:
@@ -290,6 +291,7 @@ class Controller:
                             if self.game_pause == False:
                                 self.game_pause = True
                                 pygame.mixer.music.stop()
+                                self.display.pause()
                             else:
                                 self.game_pause = False
                                 pygame.mixer.music.play(-1, 0, 5000)
@@ -335,8 +337,6 @@ class Controller:
                 # Function that returns best place to move to
                 if self.need_ai:
                     rotation, column = self.best_move(self.game.board, self.game.piece)
-                    print(column, rotation)
-                    print()
                     self.need_ai = False
                 if self.game.piece.rotation != rotation:
                     self.rotate()

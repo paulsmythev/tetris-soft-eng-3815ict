@@ -66,6 +66,10 @@ class TopScoreScreen:
         pygame.display.set_caption('Tetris - Top Scores')
         self.screen.fill(BLACK)
 
+        wallpaper = pygame.image.load('GamePage/assets/Wallpaper.jpg')
+        wallpaper = pygame.transform.scale(wallpaper, (1000,1000))
+        self.screen.blit(wallpaper, (0, 0))
+
         self.header_image = pygame.transform.smoothscale(self.header_image, (225, 175))
         self.screen.blit(self.header_image, (135, 8))
 

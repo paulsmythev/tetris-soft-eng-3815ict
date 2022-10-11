@@ -63,6 +63,10 @@ class Configure:
         self.screen.fill(self.BLACK)
         self.headings()
 
+        wallpaper = pygame.image.load('GamePage/assets/Wallpaper.jpg')
+        wallpaper = pygame.transform.scale(wallpaper, (1000,1000))
+        self.screen.blit(wallpaper, (0, 0))
+
         # blits text to screen
         self.screen.blit(self.settings_title, self.title_rect)
         self.screen.blit(self.game_size_heading, self.game_size_rect)
