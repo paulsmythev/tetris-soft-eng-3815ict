@@ -51,16 +51,19 @@ class TopScoreScreen:
         self.screen.blit(text, (120, 60))
 
         # Initialise number images
-        score1 = pygame.image.load('assets/images/high_score_1.png')
-        score2 = pygame.image.load('assets/images/high_score_2.png')
-        score3 = pygame.image.load('assets/images/high_score_3.png')
-        score4 = pygame.image.load('assets/images/high_score_4.png')
-        score5 = pygame.image.load('assets/images/high_score_5.png')
-        score6 = pygame.image.load('assets/images/high_score_6.png')
-        score7 = pygame.image.load('assets/images/high_score_7.png')
-        score8 = pygame.image.load('assets/images/high_score_8.png')
-        score9 = pygame.image.load('assets/images/high_score_9.png')
-        score10 = pygame.image.load('assets/images/high_score_10.png')
+        try:
+            score1 = pygame.image.load('assets/images/high_score_1.png')
+            score2 = pygame.image.load('assets/images/high_score_2.png')
+            score3 = pygame.image.load('assets/images/high_score_3.png')
+            score4 = pygame.image.load('assets/images/high_score_4.png')
+            score5 = pygame.image.load('assets/images/high_score_5.png')
+            score6 = pygame.image.load('assets/images/high_score_6.png')
+            score7 = pygame.image.load('assets/images/high_score_7.png')
+            score8 = pygame.image.load('assets/images/high_score_8.png')
+            score9 = pygame.image.load('assets/images/high_score_9.png')
+            score10 = pygame.image.load('assets/images/high_score_10.png')
+        except:
+            pass
 
         #Displays number images
         score1 = pygame.transform.smoothscale(score1, (50, 50))

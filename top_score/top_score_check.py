@@ -30,16 +30,19 @@ class TopScoreCheck:
             print("cant load JSON")
         # Check if new score is in the top 10
         self.array_count = 0
-        if self.top_scores_import[len(self.top_scores_import)-1]["score"] <= score:
-            for x in self.top_scores_import:
-                self.array_count += 1
-                if x["score"] == score or x["score"] < score:
-                    self.pos_ach = self.array_count
-                    self.g_pos_ach = self.array_count
-                    # Return true if in the top 10
-                    return True
-        else:
-            # If not in the top 10 return false
+        try:
+            if self.top_scores_import[len(self.top_scores_import)-1]["score"] <= score:
+                for x in self.top_scores_import:
+                    self.array_count += 1
+                    if x["score"] == score or x["score"] < score:
+                        self.pos_ach = self.array_count
+                        self.g_pos_ach = self.array_count
+                        # Return true if in the top 10
+                        return True
+            else:
+                # If not in the top 10 return false
+                return False
+        except:
             return False
 
     # This class function returns a font type based on the given size and the tetris font boolean

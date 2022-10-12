@@ -53,9 +53,12 @@ class Configure:
         self.screen.fill(Colours.BLACK)
         
         # Display settings background image
-        wallpaper = pygame.image.load('assets/backgrounds/settings_background.jpg')
-        wallpaper = pygame.transform.scale(wallpaper, (1000,1000))
-        self.screen.blit(wallpaper, (0, 0))
+        try:
+            wallpaper = pygame.image.load('assets/backgrounds/settings_background.jpg')
+            wallpaper = pygame.transform.scale(wallpaper, (1000,1000))
+            self.screen.blit(wallpaper, (0, 0))
+        except:
+            pass
 
         # Initialsie headings
         self.headings()

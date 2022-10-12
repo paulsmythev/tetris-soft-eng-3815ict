@@ -55,10 +55,13 @@ class MainMenu:
     def main_menu_display(self):
         self.screen.fill(Colours.BLACK)
 
-        # Display main menu background image
-        background = pygame.image.load('assets/backgrounds/main_menu_background.jpg')
-        background = pygame.transform.smoothscale(background, (1000,1000))
-        self.screen.blit(background, (0, 0))
+        try:
+            # Display main menu background image
+            background = pygame.image.load('assets/backgrounds/main_menu_background.jpg')
+            background = pygame.transform.smoothscale(background, (1000,1000))
+            self.screen.blit(background, (0, 0))
+        except:
+            pass
 
         # Display tetris title
         tetris_title = self.my_font(250, True).render("TETRIS", True, Colours.YELLOW)
