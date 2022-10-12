@@ -1,6 +1,7 @@
-import pygame
-pygame.init()
+# This file holds all the different piece orientations
+from assets.colours import Colours
 
+# Normal pieces
 I = [
     [[0,0,0,0],
      [1,1,1,1],
@@ -135,6 +136,7 @@ T = [
      [0,1,0]]
 ]
 
+# Extended pieces
 EI = [
     [[0,0,0],
      [1,1,1],
@@ -174,24 +176,11 @@ EL = [
      [0,0,0,0],
      [0,0,0,0]]
 ]
-
-CYAN = (0, 200, 200)
-BLUE = (0, 60, 200)
-ORANGE = (230, 100, 0)
-YELLOW = (255, 200, 0)
-GREEN = (0, 200, 0)
-PURPLE = (180, 0, 180)
-RED = (180, 0, 0)
-
-I_CYAN = (0, 255, 255)
-I_BLUE = (0, 80, 255)
-I_ORANGE = (255, 125, 0)
-I_YELLOW = (255, 255, 0)
-I_GREEN = (0, 255, 0)
-I_PURPLE = (255, 0, 255)
-I_RED = (255, 0, 0)
-
+# Normal mode piece options
 options = [I,L,J,O,S,T,Z]
+# Extended mode piece options
 extended_options = [I,L,J,O,S,T,Z,EI,EL]
-colours = [CYAN, BLUE, ORANGE, YELLOW, GREEN, PURPLE, RED, CYAN, BLUE]
-second_colours = [I_CYAN, I_BLUE, I_ORANGE, I_YELLOW, I_GREEN, I_PURPLE, I_RED, I_CYAN, I_BLUE]
+# Piece colours
+colours = [Colours.CYAN, Colours.BLUE, Colours.ORANGE, Colours.YELLOW, Colours.GREEN, Colours.PURPLE, Colours.RED, Colours.CYAN, Colours.BLUE]
+# Piece inner colours
+second_colours = [Colours.I_CYAN, Colours.I_BLUE, Colours.I_ORANGE, Colours.I_YELLOW, Colours.I_GREEN, Colours.I_PURPLE, Colours.I_RED, Colours.I_CYAN, Colours.I_BLUE]
