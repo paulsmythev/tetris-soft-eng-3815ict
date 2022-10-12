@@ -63,9 +63,12 @@ class MainMenu:
     def main_menu_view(self):
         self.screen.fill(self.BLACK)        
 
-        wallpaper = pygame.image.load('GamePage/assets/Home_Wallpaper.png')
-        wallpaper = pygame.transform.scale(wallpaper, (1000,1000))
-        self.screen.blit(wallpaper, (0, 0))
+        try:
+            wallpaper = pygame.image.load('GamePage/assets/Home_Wallpaper.png')
+            wallpaper = pygame.transform.scale(wallpaper, (1000,1000))
+            self.screen.blit(wallpaper, (0, 0))
+        except:
+           pass
 
         # main title
         tetris_title = self.my_font(300).render("Tetris", True, self.YELLOW)

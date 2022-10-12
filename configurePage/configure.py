@@ -33,8 +33,11 @@ class Configure:
     pygame.display.set_caption("Configure Page")
 
     # loads and displays icon
-    icon = pygame.image.load('configurePage\images\cogwheel.png')
-    pygame.display.set_icon(icon)
+    try:
+        icon = pygame.image.load('configurePage\images\cogwheel.png')
+        pygame.display.set_icon(icon)
+    except:
+        pass
 
         # Font function
     def my_font(self, font_size):
@@ -65,9 +68,12 @@ class Configure:
         self.screen.fill(self.BLACK)
         self.headings()
 
-        wallpaper = pygame.image.load('GamePage/assets/Settings_Wallpaper.jpg')
-        wallpaper = pygame.transform.scale(wallpaper, (1000,1000))
-        self.screen.blit(wallpaper, (0, 0))
+        try:
+            wallpaper = pygame.image.load('GamePage/assets/Settings_Wallpaper.jpg')
+            wallpaper = pygame.transform.scale(wallpaper, (1000,1000))
+            self.screen.blit(wallpaper, (0, 0))
+        except:
+            pass
 
         # blits text to screen
         self.screen.blit(self.settings_title, self.title_rect)
