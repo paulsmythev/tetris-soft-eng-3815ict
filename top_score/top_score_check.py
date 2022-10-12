@@ -17,8 +17,12 @@ class TopScoreCheck:
     g_player_ai = False
     g_input_name = ""
 
+    file_issue = False
+
     #checks if the submitted score is in the top 10
     def check(self, score):
+        self.top_scores_import = []
+
         try:
             self.get_file = FileHandler()
             self.top_scores_import = self.get_file.read_json()
@@ -27,14 +31,17 @@ class TopScoreCheck:
 
         self.array_count = 0
 
-        if self.top_scores_import[len(self.top_scores_import)-1]["score"] <= score:
-            for x in self.top_scores_import:
-                self.array_count += 1
-                if x["score"] == score or x["score"] < score:
-                    self.pos_ach = self.array_count
-                    self.g_pos_ach = self.array_count
-                    return True
-        else:
+        try:
+            if self.top_scores_import[len(self.top_scores_import)-1]["score"] <= score:
+                for x in self.top_scores_import:
+                    self.array_count += 1
+                    if x["score"] == score or x["score"] < score:
+                        self.pos_ach = self.array_count
+                        self.g_pos_ach = self.array_count
+                        return True
+            else:
+                return False
+        except:
             return False
 
 
@@ -43,17 +50,21 @@ class TopScoreCheck:
 
 
     def import_images(self):
-        self.score1 = pygame.image.load('top_score/images/number-one-round-icon.png')
-        self.score2 = pygame.image.load('top_score/images/number-two-round-icon.png')
-        self.score3 = pygame.image.load('top_score/images/number-three-round-icon.png')
-        self.score4 = pygame.image.load('top_score/images/number-four-round-icon.png')
-        self.score5 = pygame.image.load('top_score/images/number-five-round-icon.png')
-        self.score6 = pygame.image.load('top_score/images/number-six-round-icon.png')
-        self.score7 = pygame.image.load('top_score/images/number-seven-round-icon.png')
-        self.score8 = pygame.image.load('top_score/images/number-eight-round-icon.png')
-        self.score9 = pygame.image.load('top_score/images/number-nine-round-icon.png')
-        self.score10 = pygame.image.load('top_score/images/number-ten-round-icon.png')
-        self.header_image = pygame.image.load('top_score/images/1305624857.png')
+        try:
+            self.score1 = pygame.image.load('top_score/images/number-one-round-icon.png')
+            self.score2 = pygame.image.load('top_score/images/number-two-round-icon.png')
+            self.score3 = pygame.image.load('top_score/images/number-three-round-icon.png')
+            self.score4 = pygame.image.load('top_score/images/number-four-round-icon.png')
+            self.score5 = pygame.image.load('top_score/images/number-five-round-icon.png')
+            self.score6 = pygame.image.load('top_score/images/number-six-round-icon.png')
+            self.score7 = pygame.image.load('top_score/images/number-seven-round-icon.png')
+            self.score8 = pygame.image.load('top_score/images/number-eight-round-icon.png')
+            self.score9 = pygame.image.load('top_score/images/number-nine-round-icon.png')
+            self.score10 = pygame.image.load('top_score/images/number-ten-round-icon.png')
+            self.header_image = pygame.image.load('top_score/images/1305624857.png')
+        except:
+            print("Error loading /top_score/images/")
+            self.file_issue = True
 
 
     #Responsible for displaying everything on the page
@@ -64,37 +75,38 @@ class TopScoreCheck:
         pygame.display.set_caption("Top Score Achieved")
         self.screen.fill(BLACK)
 
-        self.header_image = pygame.transform.smoothscale(self.header_image, (225, 175))
-        self.screen.blit(self.header_image, (40, 200))
+        if self.file_issue == False:
+            self.header_image = pygame.transform.smoothscale(self.header_image, (225, 175))
+            self.screen.blit(self.header_image, (40, 200))
+
+            #display number and score
+            if self.pos_ach == 1:
+                self.position_image = pygame.transform.smoothscale(self.score1, (120, 120))
+            elif self.pos_ach == 2:
+                self.position_image = pygame.transform.smoothscale(self.score2, (120, 120))
+            elif self.pos_ach == 3:
+                self.position_image = pygame.transform.smoothscale(self.score3, (120, 120))
+            elif self.pos_ach == 4:
+                self.position_image = pygame.transform.smoothscale(self.score4, (120, 120))
+            elif self.pos_ach == 5:
+                self.position_image = pygame.transform.smoothscale(self.score5, (120, 120))
+            elif self.pos_ach == 6:
+                self.position_image = pygame.transform.smoothscale(self.score6, (120, 120))
+            elif self.pos_ach == 7:
+                self.position_image = pygame.transform.smoothscale(self.score7, (120, 120))
+            elif self.pos_ach == 8:
+                self.position_image = pygame.transform.smoothscale(self.score8, (120, 120))
+            elif self.pos_ach == 9:
+                self.position_image = pygame.transform.smoothscale(self.score9, (120, 120))
+            elif self.pos_ach == 10:
+                self.position_image = pygame.transform.smoothscale(self.score10, (120, 120))
+        
+            self.screen.blit(self.position_image, (350, 400))
+            font = pygame.font.Font(None, 100)
 
         self.font = pygame.font.Font(None, 100)
         self.text = self.font.render("Top Score Achieved!", 1, FONT_COLOR)
         self.screen.blit(self.text, (270, 275))
-
-        #display number and score
-        if self.pos_ach == 1:
-            self.position_image = pygame.transform.smoothscale(self.score1, (120, 120))
-        elif self.pos_ach == 2:
-            self.position_image = pygame.transform.smoothscale(self.score2, (120, 120))
-        elif self.pos_ach == 3:
-            self.position_image = pygame.transform.smoothscale(self.score3, (120, 120))
-        elif self.pos_ach == 4:
-            self.position_image = pygame.transform.smoothscale(self.score4, (120, 120))
-        elif self.pos_ach == 5:
-            self.position_image = pygame.transform.smoothscale(self.score5, (120, 120))
-        elif self.pos_ach == 6:
-            self.position_image = pygame.transform.smoothscale(self.score6, (120, 120))
-        elif self.pos_ach == 7:
-            self.position_image = pygame.transform.smoothscale(self.score7, (120, 120))
-        elif self.pos_ach == 8:
-            self.position_image = pygame.transform.smoothscale(self.score8, (120, 120))
-        elif self.pos_ach == 9:
-            self.position_image = pygame.transform.smoothscale(self.score9, (120, 120))
-        elif self.pos_ach == 10:
-            self.position_image = pygame.transform.smoothscale(self.score10, (120, 120))
-    
-        self.screen.blit(self.position_image, (350, 400))
-        font = pygame.font.Font(None, 100)
 
         strScore = "{:,}".format(self.g_score)
         text = self.font.render(strScore, 1, FONT_COLOR)
