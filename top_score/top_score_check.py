@@ -69,7 +69,10 @@ class TopScoreCheck:
 
         # Load and display new position image
         path = "assets/images/high_score_{0}.png".format(self.pos_ach)
-        score_image = pygame.image.load(path)
+        try:
+            score_image = pygame.image.load(path)
+        except:
+            pass
         score_image = pygame.transform.smoothscale(score_image, (80, 80))
         self.screen.blit(score_image, (370, 420))
 

@@ -20,22 +20,25 @@ class Controller:
     # Game pause boolean
     game_pause = False
     # Initialise game sounds and volumes
-    game_over_sound = pygame.mixer.Sound("assets/sounds/game_over.wav")
-    game_over_sound.set_volume(0.25)
-    drop_sound = pygame.mixer.Sound("assets/sounds/soft_drop.wav")
-    drop_sound.set_volume(0.5)
-    rotate_sound = pygame.mixer.Sound("assets/sounds/rotate.wav")
-    rotate_sound.set_volume(0.5)
-    move_sound = pygame.mixer.Sound("assets/sounds/move.wav")
-    move_sound.set_volume(0.5)
-    single_sound = pygame.mixer.Sound("assets/sounds/single.wav")
-    single_sound.set_volume(0.5)
-    double_sound = pygame.mixer.Sound("assets/sounds/double.wav")
-    double_sound.set_volume(0.5)
-    triple_sound = pygame.mixer.Sound("assets/sounds/triple.wav")
-    triple_sound.set_volume(0.5)
-    tetris_sound = pygame.mixer.Sound("assets/sounds/tetris.wav")
-    tetris_sound.set_volume(0.5)
+    try:
+        game_over_sound = pygame.mixer.Sound("assets/sounds/game_over.wav")
+        game_over_sound.set_volume(0.25)
+        drop_sound = pygame.mixer.Sound("assets/sounds/soft_drop.wav")
+        drop_sound.set_volume(0.5)
+        rotate_sound = pygame.mixer.Sound("assets/sounds/rotate.wav")
+        rotate_sound.set_volume(0.5)
+        move_sound = pygame.mixer.Sound("assets/sounds/move.wav")
+        move_sound.set_volume(0.5)
+        single_sound = pygame.mixer.Sound("assets/sounds/single.wav")
+        single_sound.set_volume(0.5)
+        double_sound = pygame.mixer.Sound("assets/sounds/double.wav")
+        double_sound.set_volume(0.5)
+        triple_sound = pygame.mixer.Sound("assets/sounds/triple.wav")
+        triple_sound.set_volume(0.5)
+        tetris_sound = pygame.mixer.Sound("assets/sounds/tetris.wav")
+        tetris_sound.set_volume(0.5)
+    except:
+        pass
 
     # This is the class contructor
     def __init__(self, settings):
@@ -180,8 +183,10 @@ class Controller:
                 if self.game.level >= (self.game.tempo+1)*5:
                     self.game.tempo += 1
                     pygame.mixer.music.stop()
-                    print("next song")
-                    pygame.mixer.music.load(self.game.songs[self.game.tempo])
+                    try:
+                        pygame.mixer.music.load(self.game.songs[self.game.tempo])
+                    except:
+                        pass
                     pygame.mixer.music.play(-1)
 
     # This class function checks if the user has lost
@@ -344,7 +349,10 @@ class Controller:
         while self.game.level >= (self.game.tempo+1)*6:
             self.game.tempo += 1
         # Load and initialise game sounds
-        pygame.mixer.music.load(self.game.songs[self.game.tempo])
+        try:
+            pygame.mixer.music.load(self.game.songs[self.game.tempo])
+        except:
+            pass
         pygame.mixer.music.set_volume(0.15)
         pygame.mixer.music.play(-1, 0, 5000)
         # Initialise the game clock

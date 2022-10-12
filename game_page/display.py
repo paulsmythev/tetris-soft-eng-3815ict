@@ -154,7 +154,10 @@ class Display:
     # This class function displayes the game over image
     def game_over(self):
         # Load and initialise image
-        game_over = pygame.image.load('assets/images/game_over.png')
+        try:
+            game_over = pygame.image.load('assets/images/game_over.png')
+        except:
+            pass
         game_over = pygame.transform.scale(game_over, (400,250))
         # Display image
         self.screen.blit(game_over, (300, 200))
@@ -185,7 +188,10 @@ class Display:
     # This class function displays the pause game image
     def pause(self):
         # Load and initialise image
-        pause = pygame.image.load('assets/images/pause.png')
+        try:
+            pause = pygame.image.load('assets/images/pause.png')
+        except:
+            pass
         pause = pygame.transform.scale(pause, (400,150))
         # Display image
         self.screen.blit(pause, (300, 200))
