@@ -30,7 +30,7 @@ A file that Python uses to indicate that the .py files in the folder are to be t
 #### Description
 Contains the class for a Button, the variables that are required to pass in to create a button, as well as methods to update the button (if needed in the future) and for checking user input using the mouse position.
 
-### ***configurePage--------------***
+### ***configure_page--------------***
 ### `configure.py`
 **Length**: 124 lines
 #### Description

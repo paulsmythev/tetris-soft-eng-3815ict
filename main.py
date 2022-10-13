@@ -2,7 +2,7 @@ import pygame
 from assets.colours import Colours
 from start_menu.button import Button
 from game_page.controller import Controller
-from configurePage.configure import Configure
+from configure_page.configure import Configure
 from top_score.top_score_screen import TopScoreScreen
 
 # Initialise pygame modules
