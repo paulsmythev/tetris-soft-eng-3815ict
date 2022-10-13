@@ -1,123 +1,131 @@
 import pygame
+from assets.colours import Colours
 from start_menu.button import Button
-from GamePage.controller import Controller
-from configurePage.configure import Configure
+from game_page.controller import Controller
+from configure_page.configure import Configure
 from top_score.top_score_screen import TopScoreScreen
 
+# Initialise pygame modules
+pygame.init()
+
+# This is a class for the settings of the game
 class GameSettings:
-    # default settigns
+    # Initialise settings with default values
     game_size = (10,20)
     start_level = 0
     game_type = 0
     game_mode = 0
 
-pygame.init()
+# This class holds the variables and functions of the tetris main menu
 class MainMenu:
-    # colours
-    CREAM = (255, 255, 0)
-    YELLOW = (255, 255, 0)
-    PURPLE = (255, 0, 255)
-    RED = (255, 0, 0)
-    BLACK = (0, 0, 0)
-    TURQUOISE = (72, 209, 204)
-    ORANGE = (255, 165, 0)
-    # window setup
-    SCREEN_WIDTH = 1000
-    SCREEN_HEIGHT = 1000
-    # deafualt game settings
+    # Initialise settings class
     settings = GameSettings()
 
-    # TODO: put this in the view later
+    # Initialise pygame display
+    SCREEN_WIDTH = 1000
+    SCREEN_HEIGHT = 1000
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    screen.fill(BLACK)
-    pygame.display.set_caption("Start menu")
+    pygame.display.set_caption("TETRIS - Main Menu")
 
-    # takes a font size and returns the font with the specified size
-    def my_font(self, font_size):
-        return pygame.font.SysFont("Roboto", font_size)
+    # This class function returns a font type based on the given size and the tetris font boolean
+    def my_font(self, font_size, tetris = False):
+        # Returns tetris font
+        if tetris:
+            return pygame.font.Font("assets/fonts/tetris_font.ttf", font_size)
+        # Returns roboto font
+        else:
+            return pygame.font.SysFont("Roboto", font_size)
 
-    # writes text on new lines
-    def write_lines(self, surface, text, font, colour, x_coor, y_coor):
-        height = font.get_height()
-        lines = text.split("\n")
-        for i, line in enumerate(lines):
-            text_rect = font.render(line, True, colour)
-            surface.blit(text_rect, (x_coor, y_coor+(i*height))) 
-
-    # creates and instance of the game controller
+    # This class function creates and runs the game controller class
     def play(self):
         controller = Controller(self.settings)
         controller.run_game()
 
-    # creates instance of the configure page
+    # This class function creates and runs the configure class
     def options(self):
         configure = Configure()
-        configure.config(self.settings)
+        configure.run_configure(self.settings)
 
-    # creates instance of the top score page
+    # This class function creates and runs the top score class
     def high_scores(self):
         top_score = TopScoreScreen()
-        top_score.screen()
+        top_score.run_high_scores()
 
-    # view related code
-    def main_menu_view(self):
-        self.screen.fill(self.BLACK)        
+    # This class function updates the display
+    def main_menu_display(self):
+        self.screen.fill(Colours.BLACK)
 
         try:
-            wallpaper = pygame.image.load('GamePage/assets/Home_Wallpaper.png')
-            wallpaper = pygame.transform.scale(wallpaper, (1000,1000))
-            self.screen.blit(wallpaper, (0, 0))
+            # Display main menu background image
+            background = pygame.image.load('assets/backgrounds/main_menu_background.jpg')
+            background = pygame.transform.smoothscale(background, (1000,1000))
+            self.screen.blit(background, (0, 0))
         except:
-           pass
+            pass
 
-        # main title
-        tetris_title = self.my_font(300).render("Tetris", True, self.YELLOW)
+        # Display tetris title
+        tetris_title = self.my_font(250, True).render("TETRIS", True, Colours.YELLOW)
         title_rect = tetris_title.get_rect(center=(self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT*0.15))
         self.screen.blit(tetris_title, title_rect)
 
-        # year + course code
-        course_info = "Made for:\n3815ICT\nSoftware Engineering\nYear: 2022"
-        self.write_lines(self.screen, course_info, self.my_font(35), self.ORANGE, self.SCREEN_WIDTH*0.01, self.SCREEN_HEIGHT*0.7)
-        # student names
-        student_names = "Students:\nPaul Smyth\nKevin Pho\nRobert Newcombe\nEmanuel Worku"
-        self.write_lines(self.screen, student_names, self.my_font(35), self.ORANGE, self.SCREEN_WIDTH*0.01, self.SCREEN_HEIGHT*0.85)
+        # Initialise menu buttons
+        self.play_button = Button("PLAY", (500, 400), self.my_font(180, True), Colours.GREEN)
+        self.options_button = Button("Settings", (500, 550), self.my_font(80, True), Colours.WHITE)
+        self.score_button = Button("High Scores", (500, 700), self.my_font(80, True), Colours.WHITE)
+        self.exit_button = Button("Exit", (500, 850), self.my_font(80, True), Colours.WHITE)
 
-    # menu loop
+        # Display menu buttons
+        buttons = [self.play_button, self.options_button, self.exit_button, self.score_button]
+        for button in buttons:
+            button.update(self.screen)
+
+        # Display project information
+        course_info = self.my_font(35).render("3815ICT Software Engineering - Timester 2 2022", True, Colours.WHITE)
+        self.screen.blit(course_info, (20, 940))
+        student_info = self.my_font(35).render("By: Paul Smyth - Kevin Pho - Robert Newcombe - Emanuel Worku", True, Colours.WHITE)
+        self.screen.blit(student_info, (20, 970))
+        
+        #Update the pygame display
+        pygame.display.update()
+
+    # This class function runs the control loop for the main menu
     def main_menu(self):
+        # Update display
+        self.main_menu_display()
+        # Run control loop
         running = True
         while running:
+            # Get mouse position
             mouse_pos = pygame.mouse.get_pos()
-            # getting view
-            self.main_menu_view()
-            # instantiating buttons
-            play_button = Button("PLAY!", (self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT*0.40), self.my_font(200), self.YELLOW)
-            options_button = Button("Settings", (self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT*0.6), self.my_font(100), self.YELLOW)
-            # credits_button = Button("Credits", (SCREEN_HEIGHT/2, SCREEN_HEIGHT*0.6), my_font(70), CREAM)
-            score_button = Button("High Scores", (self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT*0.75), self.my_font(100), self.YELLOW)
-            exit_button = Button("Exit", (self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT*0.9), self.my_font(80), self.RED)
-            # for blitting buttons to screen
-            buttons = [play_button, options_button, exit_button, score_button]
-            for button in buttons:
-                button.update(self.screen)
-
-            # event check
+            # Check all new events
             for event in pygame.event.get():
+                # Close window event
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
+                # Check buttons if mouse is clicked
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if play_button.check_input(mouse_pos):
-                        self.play() 
-                    elif options_button.check_input(mouse_pos):
+                    # Play button
+                    if self.play_button.check_input(mouse_pos):
+                        self.play()
+                        # Update display
+                        self.main_menu_display()
+                    # Settings button
+                    elif self.options_button.check_input(mouse_pos):
                         self.options()
-                    elif score_button.check_input(mouse_pos):
+                        # Update display
+                        self.main_menu_display()
+                    # High-Scores button
+                    elif self.score_button.check_input(mouse_pos):
                         self.high_scores()
-                    elif exit_button.check_input(mouse_pos):
+                        # Update display
+                        self.main_menu_display()
+                    # Exit button
+                    elif self.exit_button.check_input(mouse_pos):
+                        # Quit pygame and exit program
                         pygame.quit()
                         exit()
 
-            pygame.display.update()
-        
+# Create main menu class and call its control loop
 main_menu = MainMenu()
 main_menu.main_menu()
-# https://fonts.google.com/specimen/Silkscreen
